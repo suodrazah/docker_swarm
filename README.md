@@ -114,10 +114,9 @@ traefik.<EXAMPLE.DOMAIN>
 portainer.<EXAMPLE.DOMAIN>
 ```
 
-* **Configure Additional Stacks in Portainer**
-`Stacks`  
-`Add Stack`  
-Name: Name from stack file
-Environment Variables: Per stack file
-Copy contents of stack file
+* **Configure Additional Stacks in Portainer**  
+`Stacks` > `Add Stack`  
+`Name` - Name from stack file  
+`Environment Variables` - Per stack file  
+`Web editor` - Copy contents of stack file  
 `Deploy Stack`  
