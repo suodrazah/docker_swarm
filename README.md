@@ -11,7 +11,5 @@
 ## Deployment:
 * **This will bring up Docker Swarm, Traefik and Portainer**
 ```
-curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.sh -o deploy.sh
-sh deploy.sh
-rm deploy.sh
+curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.sh -o deploy.sh && sh deploy.sh
 ```
