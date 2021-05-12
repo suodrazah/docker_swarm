@@ -5,9 +5,10 @@
 #Set variables
 read -p "Does this server have a domain that points at it, and ports 80 and 443 exposed? (Y/n): " PROCEED
 PROCEED=${PROCEED:-Y}
-if [ $PROCEED = "n" ]; then
+if [ $PROCEED != "Y" ]; then
     echo "Then this won't work...goodbye"
-	sleep 5
+        rm /home/$USER/deploy.sh
+        sleep 5
 	exit
 fi
 read -p "Admin email? (for certbot/https): " ADMIN_EMAIL
@@ -23,8 +24,10 @@ echo Admin Email - $ADMIN_EMAIL
 echo Traefik User - $USERNAME
 read -p "Is this correct? (Y/n): " PROCEED
 PROCEED=${PROCEED:-Y}
-if [ $PROCEED = "n" ]; then
-    exit
+if [ $PROCEED != "Y" ]; then
+        rm /home/$USER/deploy.sh
+        sleep 5
+	exit
 fi
 
 #Update
