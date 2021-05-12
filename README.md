@@ -4,7 +4,7 @@
 ## Prerequisites:
 * **Ubuntu 20.04 LTS Local or [VPS](https://ca.ovh.com/au/order/vps/)**
 * **SSH Access**
-* **Firewall configued to allow 80, 443, 22**
+* **Firewall configured to allow 80, 443, 22**
 * **Public, Static IP**
 * **Domain pointing to IP**
 
