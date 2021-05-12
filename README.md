@@ -3,66 +3,110 @@ A deployment method and collection of basic docker swarm stacks for my own use.
 
 ## Tested on ARM64 Ubuntu 20.04 LTS VPS
 
-### Set timezone
-```sudo timedatectl set-timezone Australia/Hobart```  
+## Prerequisites:
+* #### SSH Access
+* #### WAN Firewall configued to allow 80, 443, 8000
 
-### Update OS
-```sudo apt update && sudo apt full-upgrade -y```  
+## Deployment:
 
-### Becomne root
-```sudo su```  
+* ### Set timezone
+```
+sudo timedatectl set-timezone Australia/Hobart
+```
 
-### Set node hostname
-```export USE_HOSTNAME=primary.<EXAMPLE.DOMAIN>```  
-```echo $USE_HOSTNAME > /etc/hostname```  
-```hostname -F /etc/hostname```  
+* ### Update OS
+```
+sudo apt update && sudo apt full-upgrade -y
+```
 
-### Exit root
-```exit```  
+* ### Becomne root
+```
+sudo su
+```
 
-### Install Docker
-```curl -fsSL get.docker.com -o get-docker.sh && CHANNEL=stable sh get-docker.sh```  
-```rm get-docker.sh```  
+* ### Set node hostname
+```
+export USE_HOSTNAME=primary.<EXAMPLE.DOMAIN>
+echo $USE_HOSTNAME > /etc/hostname
+hostname -F /etc/hostname
+```
 
-### Set Docker permissions
-```sudo usermod -aG docker $USER && newgrp docker```  
+* ### Exit root
+```
+exit
+```
 
-### Enable Docker swarm
-```docker swarm init```  
+* ### Install Docker
+```
+curl -fsSL get.docker.com -o get-docker.sh && CHANNEL=stable sh get-docker.sh
+rm get-docker.sh
+```
 
-### Check swarm status
-```docker node ls```  
+* ### Set Docker permissions
+```
+sudo usermod -aG docker $USER && newgrp docker 
+```
 
-### Get traefik-public network ready
-```docker network create --driver=overlay traefik-public```  
+* ### Enable Docker swarm
+```
+docker swarm init
+```
 
-### Set deployemnt variables
-```export EMAIL=<ADMIN_EMAIL>```  
-```export DOMAIN=<EXAMPLE.DOMAIN>```  
+* ### Check swarm status
+```
+* docker node ls
+```
 
-### Set Traefik dashboard authentication variables
-```export USERNAME=<USERNAME>```  
-```export PASSWORD=<PASSWORD>```  
+* ### Get traefik-public network ready
+```
+docker network create --driver=overlay traefik-public
+```
 
-### Generate hashed password
-```export HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)```  
+* ### Set deployment variables
+```
+export EMAIL=<ADMIN_EMAIL>  
+export DOMAIN=<EXAMPLE.DOMAIN>
+```
 
-### Create a label on this node so that Traefik and Portainer are always deployed here
-```export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}')```  
-```docker node update --label-add primary=true $NODE_ID```  
+* ### Set Traefik dashboard authentication variables
+```
+export USERNAME=<USERNAME>
+export PASSWORD=<PASSWORD>
+```
 
-### Configure traefik
-```curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm_stacks/main/traefik.yml -o traefik.yml```  
+* ### Generate hashed password
+```
+export HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)
+```
 
-#### Configure portainer
-```curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm_stacks/main/portainer.yml -o portainer.yml```  
+* ### Create a label on this node so that Traefik and Portainer are always deployed here
+```
+export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}')
+docker node update --label-add primary=true $NODE_ID
+```
 
-### Deploy
-```docker stack deploy -c traefik.yml traefik && docker stack deploy -c portainer.yml portainer```  
+* ### Configure traefik
+```
+curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm_stacks/main/traefik.yml -o traefik.yml
+```
 
-### Automatically prune
-```docker swarm update --task-history-limit=4```  
+* ### Configure portainer
+```
+curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm_stacks/main/portainer.yml -o portainer.yml
+```
 
-### Access Traefik and Portainer
-#### traefik.<EXAMPLE.DOMAIN>
-#### portainer.<EXAMPLE.DOMAIN>
+* ### Deploy
+```
+docker stack deploy -c traefik.yml traefik && docker stack deploy -c portainer.yml portainer
+```
+
+* ### Automatically prune
+```
+docker swarm update --task-history-limit=4
+```
+
+* ### Access Traefik and Portainer
+```
+traefik.<EXAMPLE.DOMAIN>
+portainer.<EXAMPLE.DOMAIN>
+```
