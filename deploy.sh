@@ -15,6 +15,9 @@ read -p "Admin email? (for certbot/https): " ADMIN_EMAIL
 read -p "Domain? e.g. example.com: " DOMAIN
 read -p "Desired Traefik dashboard username?: " USERNAME
 read -p "Desired Traefik dashboard password?: " PASSWORD
+#Prepare traefik password
+sudo export HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)
+export PASSWORD="0"
 read -p "Timezone? (Australia/Hobart): " TIMEZONE
 TIMEZONE=${TIMEZONE:-Australia/Hobart}
 
@@ -48,9 +51,6 @@ docker swarm init
 
 #Create traefik overlay networks
 docker network create --driver=overlay traefik-public
-
-#Prepare traefik password
-sudo export HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)
 
 #Add label to this node so we can constrain traefik and portainer to it
 export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}')
