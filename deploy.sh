@@ -58,8 +58,8 @@ export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}')
 docker node update --label-add primary=true $NODE_ID
 
 #Deploy traefik and portainer
-curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/traefik.yml -o traefik.yml
-curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/portainer.yml -o portainer.yml
+curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy/traefik.yml -o traefik.yml
+curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy/portainer.yml -o portainer.yml
 export DOMAIN=$DOMAIN
 export HASHED_PASSWORD=$HASHED_PASSWORD
 export EMAIL=$EMAIL
