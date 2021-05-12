@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#This script is a work in development, I mean...look at it, if it was a dog I'd put it down.
+#This script is a work in development, I mean...look at it, if it was a beloved family pet I'd put it down.
 
 #Set variables
 read -p "Does this server have a domain that points at it, and ports 80 and 443 exposed? (Y/n): " PROCEED
