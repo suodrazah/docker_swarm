@@ -10,7 +10,7 @@
 
 * **Set timezone**
 ```
-sudo timedatectl set-timezone Australia/Hobart
+sudo timedatectl set-timezone Australia/Hobart #set as required
 ```
 
 * **Update**
