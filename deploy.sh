@@ -63,6 +63,7 @@ curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/portainer.
 export DOMAIN=$DOMAIN
 export HASHED_PASSWORD=$HASHED_PASSWORD
 export EMAIL=$EMAIL
+export USERNAME=$USERNAME
 docker stack deploy -c traefik.yml traefik
 docker stack deploy -c portainer.yml portainer
 docker swarm update --task-history-limit=1
