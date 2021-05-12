@@ -27,6 +27,6 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 * `Portainer`
 * `Stacks`
 * `Add Stack`
-* `Name` - e.g. site1_wordpress
+* `Name` - e.g. site1_ignition
 * `Web editor` - copy contents of stack.yml file
 * `Environment variables` - as described by the stack comments
