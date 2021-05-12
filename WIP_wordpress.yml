@@ -17,7 +17,7 @@ services:
     networks:
       - internal-network
       - traefik-public
-	secrets:
+    secrets:
       - ${DBPWD?Variable not set}
     environment:
       - WORDPRESS_DB_HOST=db
