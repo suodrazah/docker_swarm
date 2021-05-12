@@ -21,6 +21,9 @@ services:
       - IGNITION_EDITION=full
       - IGNITION_STARTUP_DELAY=30
     deploy:
+      placement:
+        constraints:
+          - node.labels.primary == true
       labels:
         - traefik.enable=true
         - traefik.docker.network=traefik-public
@@ -49,6 +52,10 @@ services:
       - MYSQL_USER=db
       - MYSQL_PASSWORD=${DBPASSWORD?Variable not set}
       - MYSQL_RANDOM_ROOT_PASSWORD='1'
+    deploy:
+      placement:
+        constraints:
+          - node.labels.primary == true
 
 networks:
   internal-network:
