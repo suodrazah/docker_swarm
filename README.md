@@ -14,12 +14,12 @@ A deployment method and collection of basic docker swarm stacks for my own use.
 sudo timedatectl set-timezone Australia/Hobart
 ```
 
-* ### Update OS
+* ### Update
 ```
 sudo apt update && sudo apt full-upgrade -y
 ```
 
-* ### Becomne root
+* ### Become root
 ```
 sudo su
 ```
