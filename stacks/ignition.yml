@@ -2,7 +2,7 @@
 #DOMAIN - e.g. subdomain.domain.com, domain.com. Must be configured for your IP.
 #STACK - Copy of the name of your stack, used for traefik and ignition ID
 #PASSWORD - Initial ignition SCADA admin password.
-#DBPASSWORD - Password to use for the DB. Hostname in Ignition is "DB:3306"
+#DBPASSWORD - Password to use for the DB. Path in Ignition is "jdbc:mariadb://db:3306/db"
 #NODE - The ID of the node to deploy on, e.g. "primary", set label on node first.
 
 ########ignition.yml########
