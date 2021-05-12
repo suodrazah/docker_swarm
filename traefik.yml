@@ -3,7 +3,7 @@ version: '3.3'
 services:
 
   traefik:
-    image: traefik:v2.2
+    image: traefik:latest
     ports:
       - 80:80
       - 443:443
