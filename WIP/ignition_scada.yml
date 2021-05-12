@@ -1,0 +1,62 @@
+#Variables
+#DOMAIN
+#STACK
+#PASSWORD
+#DBPASSWORD
+
+########ignition.yml########
+version: '3.3'
+
+services:
+  ignition:
+    image:  kcollins/ignition
+    volumes:
+      - ignition-data:/var/lib/ignition/data
+    networks:
+      - internal-network
+      - traefik-public
+    environment:
+      - GATEWAY_SYSTEM_NAME=${STACK?Variable not set}_ignition
+      - GATEWAY_ADMIN_PASSWORD=${PASSWORD?Variable not set}
+      - IGNITION_EDITION=full
+      - IGNITION_STARTUP_DELAY=30
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public
+        - traefik.constraint-label=traefik-public
+        - traefik.http.routers.${STACK?Variable not set}_ignition-http.rule=Host(`${DOMAIN?Variable not set}`)
+        - traefik.http.routers.${STACK?Variable not set}_ignition-http.entrypoints=http
+        - traefik.http.routers.${STACK?Variable not set}_ignition-http.middlewares=https-redirect
+        - traefik.http.routers.${STACK?Variable not set}_ignition-https.rule=Host(`${DOMAIN?Variable not set}`)
+        - traefik.http.routers.${STACK?Variable not set}_ignition-https.entrypoints=https
+        - traefik.http.routers.${STACK?Variable not set}_ignition-https.tls=true
+        - traefik.http.routers.${STACK?Variable not set}_ignition-https.tls.certresolver=le
+        - traefik.http.services.${STACK?Variable not set}_ignition.loadbalancer.server.port=8088
+        - traefik.http.middlewares.${STACK?Variable not set}_ignition-path.replacepathregex.regex=^/main/StatusPing$$"
+        - traefik.http.middlewares.${STACK?Variable not set}_ignition-path.replacepathregex.replacement=/StatusPing"
+
+  db:
+    image:  mariadb
+    volumes:
+      - db_config:/config
+      - db:/var/lib/mysql
+    networks:
+      - internal-network
+      - traefik-public
+    environment:
+      - MYSQL_DATABASE=db
+      - MYSQL_USER=db
+      - MYSQL_PASSWORD=${DBPASSWORD?Variable not set}
+      - MYSQL_RANDOM_ROOT_PASSWORD='1'
+
+networks:
+  internal-network:
+  traefik-public:
+    external: true
+
+volumes:
+  ignition-data:
+  db_config:
+  db:
+########
