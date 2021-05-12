@@ -6,7 +6,7 @@
 * **SSH Access**
 * **Firewall configured to allow 80, 443, 22**
 * **Public, static IP**
-* **[Domain](https://domains.google.com/) pointing to IP**
+* **[Domain](https://domains.google.com/) pointing to servers public IP address**
 
 ## Deployment:
 * **This will bring up Traefik and Portainer on a primary Docker Swarm node**
