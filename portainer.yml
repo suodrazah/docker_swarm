@@ -29,6 +29,7 @@ services:
     deploy:
       placement:
         constraints:
+          - node.role == manager
           - node.labels.primary == true
       labels:
         - traefik.enable=true
