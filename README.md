@@ -2,11 +2,11 @@
 ### <p align="center">A deployment method and collection of basic docker swarm stacks.</p>
 
 ## Prerequisites:
-* **Ubuntu 20.04 LTS Local or [VPS](https://ca.ovh.com/au/order/vps/)**
+* **Ubuntu 20.04 LTS Local or [VPS](https://ca.ovh.com/au/order/vps/) Server**
 * **SSH Access**
 * **Firewall configured to allow 80, 443, 22**
 * **Public, static IP**
-* **Domain pointing to IP**
+* **[Domain](https://domains.google.com/) pointing to IP**
 
 ## Deployment:
 * **This will bring up Docker Swarm, Traefik and Portainer**
