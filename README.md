@@ -23,11 +23,29 @@ newgrp docker
 curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.sh -o deploy.sh && sh deploy.sh
 ```
 
+## Add Nodes
+* Primary node:
+```
+docker swarm join-token manager
+```  
+* Worker node:
+```
+docker swarm join-token worker
+```  
+* Execute the resulting code on the node to be added  
+* Add a label to the new node
+   * `Portainer`
+   * `Swarm`
+   * `<node>`
+   * `+Label`
+   * `Name` - <Node Name> e.g. worker1
+   * `Value` - "True"
+
 ## Extension:
 * Create a new stack
-* `Portainer`
-* `Stacks`
-* `Add Stack`
-* `Name` - e.g. client1-ignition
-* `Web editor` - copy contents of stack.yml file
-* `Environment variables` - as described by the stack comments
+   * `Portainer`
+   * `Stacks`
+   * `Add Stack`
+   * `Name` - e.g. client1-ignition
+   * `Web editor` - copy contents of stack.yml file
+   * `Environment variables` - as described by the stack comments
