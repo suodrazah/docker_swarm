@@ -56,7 +56,7 @@ services:
     deploy:
       placement:
         constraints:
-          - node.labels.primary == true
+          - node.labels.${NODE?Variable not set} == true
 
 networks:
   internal-network:
