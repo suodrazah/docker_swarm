@@ -67,9 +67,10 @@ export USERNAME=$USERNAME
 docker stack deploy -c traefik.yml traefik
 docker stack deploy -c portainer.yml portainer
 docker swarm update --task-history-limit=1
-
+clear
 echo "Deployment (probably) complete... please visit https://traefik."$DOMAIN" and https://portainer."$DOMAIN
-sleep 5
+echo "Exiting in a few seconds"
+sleep 10
 
 #Clean up
 rm /home/$USER/deploy.sh
