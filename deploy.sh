@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#This script is a work in development, I mean...look at it, if it was a dog I'd put it down.
+
 #Set variables
 read -p "Does this server have a domain that points at it, and ports 80 and 443 exposed? (Y/n): " PROCEED
 PROCEED=${PROCEED:-Y}
@@ -56,7 +58,7 @@ curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/portainer.
 docker stack deploy -c traefik.yml traefik && docker stack deploy -c portainer.yml portainer
 docker swarm update --task-history-limit=1
 
-echo "Deployment complete, please visit https://traefik."$DOMAIN" and https://portainer."$DOMAIN
+echo "Deployment (probably) complete... please visit https://traefik."$DOMAIN" and https://portainer."$DOMAIN
 sleep 5
 
 #Clean up
