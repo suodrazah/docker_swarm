@@ -90,12 +90,12 @@ docker node update --label-add primary=true $NODE_ID
 
 * **Configure traefik**
 ```
-curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm_stacks/main/traefik.yml -o traefik.yml
+curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/traefik.yml -o traefik.yml
 ```
 
 * **Configure portainer**
 ```
-curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm_stacks/main/portainer.yml -o portainer.yml
+curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/portainer.yml -o portainer.yml
 ```
 
 * **Deploy**
