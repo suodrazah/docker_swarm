@@ -2,7 +2,7 @@
 ### <p align="center">A deployment method and collection of basic docker swarm stacks for my own use.</p>
 
 ## Prerequisites:
-* **Ubuntu 20.04 LTS Local or VPS**
+* **Ubuntu 20.04 LTS Local or [VPS](https://ca.ovh.com/au/order/vps/)**
 * **SSH Access**
 * **WAN Firewall configued to allow 80, 443, 8000**
 
