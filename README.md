@@ -1,6 +1,12 @@
 # <p align="center">Docker Swarm</p>
 ### <p align="center">A deployment method and collection of basic docker swarm stacks.</p>
 
+## tl;dr
+```
+sudo groupadd docker && sudo usermod -aG docker $USER && newgrp docker
+curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.sh -o deploy.sh && sh deploy.sh
+```
+
 ## Prerequisites:
 * **_Tested on_ Ubuntu Server 20.04 LTS Local or [VPS](https://ca.ovh.com/au/order/vps/) Server**
   * If using OVH, in the Dashboard go the the IP tab and configure your firewall.
