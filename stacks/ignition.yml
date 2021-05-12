@@ -59,4 +59,3 @@ volumes:
   ignition-data:
   db_config:
   db:
-########
