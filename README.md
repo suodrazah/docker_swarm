@@ -9,8 +9,8 @@
 * **[Domain](https://domains.google.com/) pointing to servers public IP address**
 
 ## Notes:
-* **Designed to be executed on a fresh platform
-* **All updates are handled
+* **Designed to be executed on a fresh platform**
+* **All updates are handled**
 
 ## Deployment:
 * **This will bring up Traefik and Portainer on a primary Docker Swarm node**
