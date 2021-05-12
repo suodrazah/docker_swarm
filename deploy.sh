@@ -49,17 +49,18 @@ docker swarm init
 docker network create --driver=overlay traefik-public
 
 #Prepare traefik password
-export HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)
+sudo export HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)
 
 #Add label to this node so we can constrain traefik and portainer to it
 export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}')
 docker node update --label-add primary=true $NODE_ID
 
 #Deploy traefik and portainer
-export DOMAIN
-export HASHED_PASSWORD
+sudo export DOMAIN=$DOMAIN
 curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/traefik.yml -o traefik.yml
 curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/portainer.yml -o portainer.yml
+export DOMAIN=$DOMAIN
+export HASHED_PASSWORD=$HASHED_PASSWORD
 docker stack deploy -c traefik.yml traefik
 docker stack deploy -c portainer.yml portainer
 docker swarm update --task-history-limit=1
