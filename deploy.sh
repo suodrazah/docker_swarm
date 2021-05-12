@@ -33,13 +33,6 @@ curl -fsSL get.docker.com -o get-docker.sh
 CHANNEL=stable sh get-docker.sh
 rm get-docker.sh
 
-#Enable user to execute Docker commands
-sudo usermod -aG docker $USER
-/usr/bin/newgrp docker <<EONG
-echo "newgrp update succesful"
-id
-EONG
-
 #Initiate Docker Swarm
 docker swarm init
 
@@ -64,6 +57,8 @@ sleep 5
 
 #Clean up
 rm /home/$USER/deploy.sh
+rm /home/$USER/traefik.yml
+rm /home/$USER/portainer.yml
 clear
 
 #Done
