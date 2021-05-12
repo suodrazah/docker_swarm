@@ -22,6 +22,7 @@ TIMEZONE=${TIMEZONE:-Australia/Hobart}
 echo Configuring primary.$DOMAIN node
 echo Admin Email - $ADMIN_EMAIL
 echo Traefik User - $USERNAME
+echo Timezone - $TIMEZONE
 read -p "Is this correct? (Y/n): " PROCEED
 PROCEED=${PROCEED:-Y}
 if [ $PROCEED != "Y" ]; then
