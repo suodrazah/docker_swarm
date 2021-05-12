@@ -5,7 +5,7 @@
 * **Ubuntu 20.04 LTS Local or [VPS](https://ca.ovh.com/au/order/vps/)**
 * **SSH Access**
 * **Firewall configured to allow 80, 443, 22**
-* **Public, Static IP**
+* **Public, static IP**
 * **Domain pointing to IP**
 
 ## Deployment:
