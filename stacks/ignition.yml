@@ -3,7 +3,7 @@
 #STACK - Copy of the name of your stack, used for traefik and ignition ID
 #PASSWORD - Initial ignition SCADA admin password.
 #DBPASSWORD - Password to use for the DB. Hostname in Ignition is "DB:3306"
-#NODE - The Id of the node to deploy on, e.g. "primary"
+#NODE - The ID of the node to deploy on, e.g. "primary"
 
 ########ignition.yml########
 version: '3.3'
