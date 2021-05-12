@@ -23,9 +23,13 @@ sudo apt update && sudo apt full-upgrade -y
 sudo su
 ```
 
-* **Set node hostname**
+* **Set node hostname variable**
 ```
 export HOSTNAME=primary.<EXAMPLE.DOMAIN>
+```
+
+* **Set node hostname**
+```
 echo $HOSTNAME > /etc/hostname
 hostname -F /etc/hostname
 ```
