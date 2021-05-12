@@ -25,6 +25,7 @@ TIMEZONE=${TIMEZONE:-Australia/Hobart}
 echo Configuring primary.$DOMAIN node
 echo Admin Email - $ADMIN_EMAIL
 echo Traefik User - $USERNAME
+echo Traefik Pwd Hashed - $HASHED_PASSWORD
 echo Timezone - $TIMEZONE
 read -p "Is this correct? (Y/n): " PROCEED
 PROCEED=${PROCEED:-Y}
