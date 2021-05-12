@@ -13,3 +13,6 @@
 ```
 curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.sh -o deploy.sh && sh deploy.sh
 ```
+
+## Extension:
+* **Follow instructions in each stack.yml file*
