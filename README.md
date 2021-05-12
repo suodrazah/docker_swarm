@@ -3,7 +3,7 @@
 
 ## Prerequisites:
 * **_Tested on_ Ubuntu Server 20.04 LTS Local or [VPS](https://ca.ovh.com/au/order/vps/) Server**
-  * If using OVH, in the Dahsboard go the the IP tab and configure your firewall.
+  * If using OVH, in the Dashboard go the the IP tab and configure your firewall.
 * **SSH Access**
 * **Firewall configured to allow 80, 443, 22**
 * **Public, static IP**
