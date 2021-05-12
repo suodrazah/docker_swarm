@@ -33,7 +33,6 @@ docker swarm join-token manager
 docker swarm join-token worker
 ```  
 * Execute the resulting code on the node to be added
-  
 * Add a label to the new node
    * `Portainer`
    * `Swarm`
