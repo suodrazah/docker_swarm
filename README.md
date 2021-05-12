@@ -11,6 +11,7 @@
 ## Notes:
 * **Designed to be executed on a fresh platform**
 * **All updates are handled**
+* **Wait a minute or so for Traefik to come up after the script finishes**
 
 ## Deployment:
 * **This will bring up Traefik and Portainer on a primary Docker Swarm node**
@@ -23,10 +24,3 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 
 ## Extension:
 * **Follow instructions in each stack.yml file. I'll add it all here as I upload them**
-
-## Demo:
-* **Username: `demo`**
-* **Password: `demo`**
-
-traefik.demo.suodrazah.com.au
-portainer.demo.suodrazah.com.au
