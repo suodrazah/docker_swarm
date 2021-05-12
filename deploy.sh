@@ -1,4 +1,5 @@
 #!/bin/bash
+
 #Set variables
 read -p "Does this server have a domain that points at it, and ports 80 and 443 exposed? (Y/n): " PROCEED
 PROCEED=${PROCEED:-Y}
@@ -13,6 +14,7 @@ read -p "Desired Traefik dashboard username?: " USERNAME
 read -p "Desired Traefik dashboard password?: " PASSWORD
 read -p "Timezone? (Australia/Hobart): " TIMEZONE
 TIMEZONE=${TIMEZONE:-Australia/Hobart}
+
 #Get authority
 echo Configuring primary.$DOMAIN node
 echo Admin Email - $ADMIN_EMAIL
@@ -22,12 +24,14 @@ PROCEED=${PROCEED:-Y}
 if [ $PROCEED = "n" ]; then
     exit
 fi
+
 #Update
 sudo /usr/bin/apt-get update && sudo /usr/bin/apt-get full-upgrade -y
 export HOSTNAME="primary.$DOMAIN"
 echo $HOSTNAME | sudo tee /etc/hostname > /dev/null 2>&1
 sudo hostname -F /etc/hostname
 sudo timedatectl set-timezone $TIMEZONE
+
 ##Install Docker
 curl -fsSL get.docker.com -o get-docker.sh
 CHANNEL=stable sh get-docker.sh
