@@ -24,5 +24,5 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 * **Username: `demo`**
 * **Password: `demo`**
 
-traefik.suodrazah.com.au
-portainer.suodrazah.com.au
+traefik.demo.suodrazah.com.au
+portainer.demo.suodrazah.com.au
