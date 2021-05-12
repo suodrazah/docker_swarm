@@ -9,7 +9,7 @@
 * **[Domain](https://domains.google.com/) pointing to IP**
 
 ## Deployment:
-* **This will bring up Docker Swarm, Traefik and Portainer on a master Docker Swarm node**
+* **This will bring up Docker Swarm, Traefik and Portainer on a primary Docker Swarm node**
 ```
 sudo groupadd docker
 sudo usermod -aG docker $USER
