@@ -55,10 +55,13 @@ export HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)
 export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}')
 docker node update --label-add primary=true $NODE_ID
 
-#Deploy traefik and portainter
+#Deploy traefik and portainer
+export DOMAIN
+export HASHED_PASSWORD
 curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/traefik.yml -o traefik.yml
 curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/portainer.yml -o portainer.yml
-docker stack deploy -c traefik.yml traefik && docker stack deploy -c portainer.yml portainer
+docker stack deploy -c traefik.yml traefik
+docker stack deploy -c portainer.yml portainer
 docker swarm update --task-history-limit=1
 
 echo "Deployment (probably) complete... please visit https://traefik."$DOMAIN" and https://portainer."$DOMAIN
