@@ -23,4 +23,10 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 ```
 
 ## Extension:
-* **Follow instructions in each stack.yml file. I'll add it all here as I upload them**
+* Create a new stack
+* `Portainer`
+* `Stacks`
+* `Add Stack`
+* `Name` - e.g. site1_wordpress
+* `Web editor` - copy contents of stack.yml file
+* `Environment variables` - as described by the stack comments
