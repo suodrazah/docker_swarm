@@ -29,7 +29,7 @@ newgrp docker
 curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.sh -o deploy.sh && sh deploy.sh
 ```
 
-## Add Nodes
+## Add Nodes (same private IPv4 LAN)
 * Primary node:
 ```
 docker swarm join-token manager
