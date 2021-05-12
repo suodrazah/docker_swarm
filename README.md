@@ -18,4 +18,4 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 ```
 
 ## Extension:
-* **Follow instructions in each stack.yml file**
+* **Follow instructions in each stack.yml file. I'll add it all here as I upload them**
