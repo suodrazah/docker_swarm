@@ -25,8 +25,8 @@ sudo su
 
 * **Set node hostname**
 ```
-export USE_HOSTNAME=primary.<EXAMPLE.DOMAIN>
-echo $USE_HOSTNAME > /etc/hostname
+export HOSTNAME=primary.<EXAMPLE.DOMAIN>
+echo $HOSTNAME > /etc/hostname
 hostname -F /etc/hostname
 ```
 
