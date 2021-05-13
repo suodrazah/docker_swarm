@@ -6,7 +6,7 @@
 sudo groupadd docker && sudo usermod -aG docker $USER && newgrp docker
 ```
 ```
-rm -f deploy.sh && curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.sh -o deploy.sh && sh deploy.sh
+curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.sh -o deploy.sh && sh deploy.sh
 ```
 
 ## Prerequisites:
@@ -68,5 +68,5 @@ docker swarm join-token worker
 * Take a snapshot or backup
 * Run the script again
 ```
-rm -f deploy.sh && curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.sh -o deploy.sh && sh deploy.sh
+curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.sh -o deploy.sh && sh deploy.sh
 ```
