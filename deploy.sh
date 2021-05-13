@@ -96,7 +96,7 @@ if [ $PROCEED != "Y" ]; then
     sleep 5
     exit
 fi
-
+rm deploy.conf
 echo "DOMAIN=$DOMAIN" >> deploy.conf
 echo "ADMIN_EMAIL=$ADMIN_EMAIL" >> deploy.conf
 echo "USERNAME=$USERNAME" >> deploy.conf
