@@ -37,7 +37,7 @@ services:
       - --providers.docker.exposedbydefault=false
       - --providers.docker.swarmmode
       - --entrypoints.http.address=:80
-      - --entrypoints.https.address=:443 #TLS:MinVersion:VersionTLS12 TLS:CipherSuites:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_AES_128_GCM_SHA256 TLS_AES_256_GCM_SHA384,TLS_CHACHA20_POLY1305_SHA256
+      - --entrypoints.https.address=:443
       - --certificatesresolvers.le.acme.email=${EMAIL?Variable not set}
       - --certificatesresolvers.le.acme.storage=/certificates/acme.json
       - --certificatesresolvers.le.acme.tlschallenge=true
