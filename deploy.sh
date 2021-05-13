@@ -9,16 +9,19 @@ read -p "Update or NEW: (u/N) " UPDATE
 if [ $UPDATE != "u" ]; then
     echo "Updating!"
     . /home/$USER/deploy.conf
+    
     #Update
     sudo /usr/bin/apt-get update && sudo /usr/bin/apt-get full-upgrade -y
     export HOSTNAME="primary.$DOMAIN"
     echo $HOSTNAME | sudo tee /etc/hostname > /dev/null 2>&1
     sudo hostname -F /etc/hostname
     sudo timedatectl set-timezone $TIMEZONE
-    ##Install Docker
+    
+    ##Install Docker    
     curl -fsSL get.docker.com -o get-docker.sh
     CHANNEL=stable sh get-docker.sh
     rm get-docker.sh
+    
     #Initiate Docker Swarm
     docker swarm init
     
