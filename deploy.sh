@@ -64,7 +64,6 @@ export DOMAIN=$DOMAIN
 export HASHED_PASSWORD=$HASHED_PASSWORD
 export EMAIL=$EMAIL
 export USERNAME=$USERNAME
-export USER=$USER
 docker stack deploy -c traefik.yml traefik
 docker stack deploy -c portainer.yml portainer
 docker swarm update --task-history-limit=1
