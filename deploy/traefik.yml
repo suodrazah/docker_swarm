@@ -31,6 +31,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - traefik-public-certificates:/certificates
+      - /home/${USER?Variable not set}/config/traefik/traefik-config.toml:/etc/traefik/traefik.toml
     command:
       - --providers.docker
       - --providers.docker.constraints=Label(`traefik.constraint-label`, `traefik-public`)
