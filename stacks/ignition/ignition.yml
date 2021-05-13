@@ -17,7 +17,7 @@ services:
       - traefik-public
     environment:
       - GATEWAY_SYSTEM_NAME=${STACK?Variable not set}_ignition
-      - GATEWAY_ADMIN_PASSWORD=${PASSWORD?Variable not set}
+      - GATEWAY_ADMIN_PASSWORD=${IGPASSWORD?Variable not set}
       - IGNITION_EDITION=full
       - IGNITION_STARTUP_DELAY=30
     deploy:
