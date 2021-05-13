@@ -41,7 +41,7 @@ if [ $UPDATE = "u" ]; then
     curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy/traefik.yml -o traefik.yml
     curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy/portainer.yml -o portainer.yml
     export DOMAIN=$DOMAIN
-    export HASHED_PASSWORD=$HASHED_PASSWORD
+    export HASHED_TFPASSWORD=$HASHED_TFPASSWORD
     export EMAIL=$EMAIL
     export USERNAME=$USERNAME
     docker stack deploy -c traefik.yml traefik
@@ -76,10 +76,13 @@ if [ $PROCEED != "Y" ]; then
 fi
 read -p "Admin email? (for certbot/https): " ADMIN_EMAIL
 read -p "Domain? e.g. example.com: " DOMAIN
+read -p "Ignition name? :" STACK
+read -p "Ignition admin password?: " IGPASSWORD
+read -p "Ignition db password? (jdbc:mariadb://db:3306/db): " IGDBPASSWORD
 read -p "Traefik dashboard username?: " USERNAME
 echo Traefik dashboard password?
 #Prepare traefik password
-export "HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)"
+export "HASHED_TFPASSWORD=$(openssl passwd -apr1 $TFPASSWORD)"
 read -p "Timezone? (Australia/Hobart): " TIMEZONE
 TIMEZONE=${TIMEZONE:-Australia/Hobart}
 
@@ -87,7 +90,7 @@ TIMEZONE=${TIMEZONE:-Australia/Hobart}
 echo Configuring primary.$DOMAIN node
 echo Admin Email - $ADMIN_EMAIL
 echo Traefik User - $USERNAME
-echo Traefik Pwd Hashed - $HASHED_PASSWORD
+echo Traefik Pwd Hashed - $HASHED_TFPASSWORD
 echo Timezone - $TIMEZONE
 read -p "Is this correct? (Y/n): " PROCEED
 PROCEED=${PROCEED:-Y}
@@ -100,7 +103,7 @@ fi
 echo "DOMAIN=$DOMAIN" >> deploy.conf
 echo "ADMIN_EMAIL=$ADMIN_EMAIL" >> deploy.conf
 echo "USERNAME=$USERNAME" >> deploy.conf
-echo "HASHED_PASSWORD=$HASHED_PASSWORD" >> deploy.conf
+echo "HASHED_TFPASSWORD=$HASHED_TFPASSWORD" >> deploy.conf
 echo "TIMEZONE=$TIMEZONE" >> deploy.conf
 
 #Update
@@ -129,9 +132,14 @@ docker node update --label-add primary=true $NODE_ID
 curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy/traefik.yml -o traefik.yml
 curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy/portainer.yml -o portainer.yml
 export DOMAIN=$DOMAIN
-export HASHED_PASSWORD=$HASHED_PASSWORD
+export HASHED_TFPASSWORD=$HASHED_TFPASSWORD
 export EMAIL=$EMAIL
 export USERNAME=$USERNAME
+export STACK=$STACK
+export IGPASSWORD=$IGPASSWORD
+export IGDBPASSWORD=$IGDBPASSWORD
+export NODE="primary"
+
 docker stack deploy -c traefik.yml traefik
 docker stack deploy -c portainer.yml portainer
 docker swarm update --task-history-limit=1
