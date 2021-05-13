@@ -14,9 +14,9 @@ fi
 read -p "Admin email? (for certbot/https): " ADMIN_EMAIL
 read -p "Domain? e.g. example.com: " DOMAIN
 read -p "Desired Traefik dashboard username?: " USERNAME
-read -p "Desired Traefik dashboard password?: " PASSWORD
+read -p "Desired Traefik dashboard password?: "
 #Prepare traefik password
-export HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)
+export "HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)"
 export PASSWORD="0"
 read -p "Timezone? (Australia/Hobart): " TIMEZONE
 TIMEZONE=${TIMEZONE:-Australia/Hobart}
@@ -34,6 +34,12 @@ if [ $PROCEED != "Y" ]; then
         sleep 5
 	exit
 fi
+
+echo "$DOMAIN" >> deploy.conf
+echo "$ADMIN_EMAIL" >> deploy.conf
+echo "$USERNAME" >> deploy.conf
+echo "$HASHED_PASSWORD" >> deploy.conf
+echo "$TIMEZONE" >> deploy.conf
 
 #Update
 sudo /usr/bin/apt-get update && sudo /usr/bin/apt-get full-upgrade -y
