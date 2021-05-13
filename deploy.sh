@@ -17,7 +17,6 @@ read -p "Desired Traefik dashboard username?: " USERNAME
 read -p "Desired Traefik dashboard password?: "
 #Prepare traefik password
 export "HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)"
-export PASSWORD="0"
 read -p "Timezone? (Australia/Hobart): " TIMEZONE
 TIMEZONE=${TIMEZONE:-Australia/Hobart}
 
