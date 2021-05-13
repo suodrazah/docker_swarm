@@ -63,3 +63,10 @@ docker swarm join-token worker
    * `Name` - e.g. client1-ignition
    * `Web editor` - copy contents of stack.yml file
    * `Environment variables` - as described by the stack comments
+
+## Update:
+* Take a snapshot or backup
+* Run the script again
+```
+curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.sh -o deploy.sh && sh deploy.sh
+```
