@@ -57,10 +57,6 @@ docker network create --driver=overlay traefik-public
 export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}')
 docker node update --label-add primary=true $NODE_ID
 
-#Get Traefik config ready
-mkdir -p /home/$USER/config/traefik/
-curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy/traefik_conf.toml -o /home/$USER/config/traefik/traefik_conf.toml
-
 #Deploy traefik and portainer
 curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy/traefik.yml -o traefik.yml
 curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy/portainer.yml -o portainer.yml
