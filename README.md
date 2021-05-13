@@ -62,7 +62,7 @@ docker swarm join-token worker
    * `Environment variables` - as described by the stack comments
 
 ## Update:
-* Take a snapshot or backup
+* Take a server snapshot or backup
 * Run the script again
 ```
 curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.sh -o deploy.sh && sh deploy.sh
