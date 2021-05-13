@@ -14,7 +14,6 @@ UPDATE=${UPDATE:-N}
 if [ $UPDATE = "u" ]; then
     echo "Updating!"
     . /home/$USER/deploy.conf
-    
     #Update
     sudo /usr/bin/apt-get update && sudo /usr/bin/apt-get full-upgrade -y
     export HOSTNAME="primary.$DOMAIN"
@@ -22,7 +21,7 @@ if [ $UPDATE = "u" ]; then
     sudo hostname -F /etc/hostname
     sudo timedatectl set-timezone $TIMEZONE
     
-    ##Install Docker    
+    ##Install Docker
     curl -fsSL get.docker.com -o get-docker.sh
     CHANNEL=stable sh get-docker.sh
     rm get-docker.sh
@@ -44,6 +43,11 @@ if [ $UPDATE = "u" ]; then
     export HASHED_TFPASSWORD=$HASHED_TFPASSWORD
     export EMAIL=$EMAIL
     export USERNAME=$USERNAME
+    export STACK=$STACK
+    export IGPASSWORD=$IGPASSWORD
+    export IGDBPASSWORD=$IGDBPASSWORD
+    export NODE="primary"
+    
     docker stack deploy -c traefik.yml traefik
     docker stack deploy -c portainer.yml portainer
     docker swarm update --task-history-limit=1
