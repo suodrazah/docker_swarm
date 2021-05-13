@@ -13,7 +13,7 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 * **_Tested on_ Ubuntu Server 20.04 LTS Local or [VPS](https://ca.ovh.com/au/order/vps/) Server**
   * If using OVH, in the Dashboard go the the IP tab and configure your firewall.
 * **SSH Access**
-* **Firewall configured to allow 80, 443, 22**
+* **Firewall configured to allow 80/tcp, 443/tcp, 22/tcp**
 * **Public, static IP**
 * **[Domain](https://domains.google.com/) pointing to servers public IP address**
 
