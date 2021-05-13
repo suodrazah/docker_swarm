@@ -26,11 +26,6 @@
         "TLS_CHACHA20_POLY1305_SHA256"
     ]
 
-    sniStrict = true
-    [tls.options.intranet.clientAuth]
-      caFiles = ["/ca.pem"]
-      clientAuthType = "RequireAndVerifyClientCert"
-
 [http.middlewares]
   [http.middlewares.compress-all.compress]
 
