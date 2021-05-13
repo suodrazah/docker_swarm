@@ -2,7 +2,7 @@
 #DOMAIN - e.g. subdomain.domain.com, domain.com. Must be configured for your IP.
 #STACK - Copy of the name of your stack, used for traefik and ignition ID
 #IGPASSWORD - Initial ignition SCADA admin password - or use a portainer secret.
-#DBPASSWORD - Password to use for the DB. Path in Ignition is "jdbc:mariadb://db:3306/db" - or use a portainer secret.
+#IGDBPASSWORD - Password to use for the DB. Path in Ignition is "jdbc:mariadb://db:3306/db" - or use a portainer secret.
 #NODE - The ID of the node to deploy on, e.g. "primary", "worker1". Set label on node first per deployment examples.
 
 version: '3.3'
@@ -50,7 +50,7 @@ services:
     environment:
       - MYSQL_DATABASE=db
       - MYSQL_USER=db
-      - MYSQL_PASSWORD=${DBPASSWORD?Variable not set}
+      - MYSQL_PASSWORD=${IGDBPASSWORD?Variable not set}
       - MYSQL_RANDOM_ROOT_PASSWORD='1'
     deploy:
       placement:
