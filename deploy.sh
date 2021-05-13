@@ -69,7 +69,7 @@ fi
 read -p "Admin email? (for certbot/https): " ADMIN_EMAIL
 read -p "Domain? e.g. example.com: " DOMAIN
 read -p "Desired Traefik dashboard username?: " USERNAME
-echo "Desired Traefik dashboard password?: "
+echo Desired Traefik dashboard password?:
 #Prepare traefik password
 export "HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)"
 read -p "Timezone? (Australia/Hobart): " TIMEZONE
