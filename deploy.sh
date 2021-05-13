@@ -6,6 +6,7 @@
 
 #Update
 read -p "Update or NEW: (u/N) " UPDATE
+UPDATE=${UPDATE:-N}
 if [ $UPDATE = "u" ]; then
     echo "Updating!"
     . /home/$USER/deploy.conf
