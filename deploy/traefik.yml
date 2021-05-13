@@ -39,7 +39,6 @@ services:
       - --providers.docker.swarmmode
       - --entrypoints.http.address=:80
       - --entrypoints.https.address=:443
-      - --providers.file.filename=/traefik_conf.toml
       - --certificatesresolvers.le.acme.email=${EMAIL?Variable not set}
       - --certificatesresolvers.le.acme.storage=/certificates/acme.json
       - --certificatesresolvers.le.acme.tlschallenge=true
