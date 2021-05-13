@@ -16,7 +16,9 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 * **SSH Access**
 * **Firewall configured to allow 80/tcp, 443/tcp, 22/tcp**
 * **Public, static IP**
-* **[Domain](https://domains.google.com/) pointing to servers public IP address**
+* **Domain pointing to servers public IP address**
+  * [Google Domains](https://domains.google.com/)
+  * [No-IP (free)](https://domains.google.com/)
 
 ## Notes:
 * **Designed to be executed on a fresh platform**
