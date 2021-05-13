@@ -11,7 +11,7 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 
 ## Prerequisites:
 * **_Tested on_ Ubuntu Server 20.04 LTS Local or VPS.**
-  * [$5 Starter VPS at OVH](https://ca.ovh.com/au/order/vps/)
+  * [$5 Starter VPS at OVH](https://ca.ovh.com/au/order/vps/) (Recommended for Ignition SCADA)
   * [Free Tier EC2 VPS at AWS](https://aws.amazon.com/free/)
 * **SSH Access**
 * **Firewall configured to allow 80/tcp, 443/tcp, 22/tcp**
