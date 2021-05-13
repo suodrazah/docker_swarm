@@ -13,8 +13,10 @@ read -p "Update or New (u/N): " UPDATE
 UPDATE=${UPDATE:-N}
 if [ $UPDATE = "u" ]; then
     echo "Updating!"
+
+    #Load user details
     . /home/$USER/deploy.conf
-    
+
     #Update
     sudo /usr/bin/apt-get update && sudo /usr/bin/apt-get full-upgrade -y
     export HOSTNAME="primary.$DOMAIN"
@@ -96,6 +98,8 @@ if [ $PROCEED != "Y" ]; then
     sleep 5
     exit
 fi
+
+#Store user details
 rm -f deploy.conf
 echo "DOMAIN=$DOMAIN" >> deploy.conf
 echo "ADMIN_EMAIL=$ADMIN_EMAIL" >> deploy.conf
