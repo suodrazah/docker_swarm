@@ -5,9 +5,9 @@
 
 
 #Update
-read -p "Update or NEW: (u/N) " UPDATE
+read -p "Update or New (u/N): " UPDATE
 UPDATE=${UPDATE:-N}
-if [ $UPDATE = "u" ]; then
+if [ $UPDATE == "u" ]; then
     echo "Updating!"
     . /home/$USER/deploy.conf
     
