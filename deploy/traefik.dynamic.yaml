@@ -19,9 +19,9 @@ http:
         X-Xss-Protection: true
         stsSeconds: 31536000
         stsIncludeSubdomains: true
-        contentSecurityPolicy: "upgrade-insecure-requests"
-        customFrameOptionsValue: "SAMEORIGIN"
-        referrerPolicy: "strict-origin-when-cross-origin"
-        Cache-Control: "public, max-age=15, must-revalidate"
+        contentSecurityPolicy: upgrade-insecure-requests
+        customFrameOptionsValue: SAMEORIGIN
+        referrerPolicy: strict-origin-when-cross-origin
+        Cache-Control: public, max-age=15, must-revalidate
         customResponseHeaders:
-          Permissions-Policy: "accelerometer=(); ambient-light-sensor=(); autoplay=(self); camera=(); encrypted-media=(); fullscreen=(self); geolocation=(*); gyroscope=(); magnetometer=(); microphone=(); midi=(); payment=(); picture-in-picture=(*); speaker=(); sync-xhr=(); usb=(); vr=()interest-cohort=()"
+          Permissions-Policy: accelerometer=(); ambient-light-sensor=(); autoplay=(self); camera=(); encrypted-media=(); fullscreen=(self); geolocation=(*); gyroscope=(); magnetometer=(); microphone=(); midi=(); payment=(); picture-in-picture=(*); speaker=(); sync-xhr=(); usb=(); vr=()interest-cohort=()
