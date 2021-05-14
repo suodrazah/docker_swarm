@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#Don't use this script....
 #Hello there
 #This script is a work in development, I mean...look at it, if it was a beloved family pet I'd put it down.
 #And I'm not an idiot, I realise I could have an if statement for the New deployment and configure variables in there.
@@ -7,6 +8,7 @@
 #Good luck
 
 
+export BRANCH=main
 
 #Update
 read -p "Update or New (u/N): " UPDATE
@@ -44,11 +46,11 @@ if [ $UPDATE = "u" ]; then
     docker node update --label-add primary=true $NODE_ID
     
     #Get traefik ready
-    curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy/traefik_conf.toml -o /home/${USER?Variable not set}/traefik_conf.toml
+    curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/$BRANCH/deploy/traefik.dynamic.yaml -o /home/${USER?Variable not set}/traefik.dynamic.yaml
     
     #Deploy traefik and portainer
-    curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy/traefik.yml -o traefik.yml
-    curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy/portainer.yml -o portainer.yml
+    curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/$BRANCH/deploy/traefik.yml -o traefik.yml
+    curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/$BRANCH/deploy/portainer.yml -o portainer.yml
     export USER=$USER
     export DOMAIN=$DOMAIN
     export HASHED_TFPASSWORD=$HASHED_TFPASSWORD
@@ -137,11 +139,11 @@ export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}')
 docker node update --label-add primary=true $NODE_ID
 
 #Get traefik ready
-curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy/traefik_conf.toml -o /home/${USER?Variable not set}/traefik_conf.toml
+curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/$BRANCH/deploy/traefik.dynamic.yaml -o /home/${USER?Variable not set}/traefik.dynamic.yaml
 
 #Deploy traefik and portainer
-curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy/traefik.yml -o traefik.yml
-curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy/portainer.yml -o portainer.yml
+curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/$BRANCH/deploy/traefik.yml -o traefik.yml
+curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/$BRANCH/deploy/portainer.yml -o portainer.yml
 export USER=$USER
 export DOMAIN=$DOMAIN
 export HASHED_TFPASSWORD=$HASHED_TFPASSWORD
