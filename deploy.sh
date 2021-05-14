@@ -84,7 +84,7 @@ if [ $PROCEED != "Y" ]; then
     sleep 5
     exit
 fi
-read -p "Admin email? (for certbot/https): " ADMIN_EMAIL
+read -p "Admin email? (for certbot/https): " EMAIL
 read -p "Domain? e.g. example.com: " DOMAIN
 read -p "Traefik dashboard username?: " USERNAME
 echo Traefik dashboard password?
