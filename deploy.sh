@@ -17,7 +17,7 @@ if [ $UPDATE = "u" ]; then
     #Load user details
     . /home/$USER/deploy.conf
     
-    echo Traefik dashboard password?
+    echo "Traefik dashboard password (new or same)?"
     #Prepare traefik password
     export "HASHED_TFPASSWORD=$(openssl passwd -apr1 $TFPASSWORD)"
 
@@ -87,7 +87,7 @@ fi
 read -p "Admin email? (for certbot/https): " EMAIL
 read -p "Domain? e.g. example.com: " DOMAIN
 read -p "Traefik dashboard username?: " USERNAME
-echo Traefik dashboard password?
+echo "Traefik dashboard password?"
 #Prepare traefik password
 export "HASHED_TFPASSWORD=$(openssl passwd -apr1 $TFPASSWORD)"
 read -p "Timezone? (Australia/Hobart): " TIMEZONE
