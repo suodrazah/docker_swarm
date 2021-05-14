@@ -45,8 +45,8 @@ services:
         - traefik.http.routers.portainer-https.tls.certresolver=le
         - traefik.http.services.portainer.loadbalancer.server.port=9000
         # Security headers middleware
-        - "traefik.http.middlewares.testHeader.headers.framedeny=true"
-        - "traefik.http.middlewares.testHeader.headers.sslredirect=true"
+        - "traefik.http.middlewares.security-headers.headers.framedeny=true"
+        - "traefik.http.middlewares.security-headers.headers.sslredirect=true"
 
 networks:
   agent-network:
