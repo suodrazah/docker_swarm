@@ -104,7 +104,6 @@ clear
 read -p "Traefik dashboard username?: " USERNAME
 clear
 echo "Traefik dashboard password?"
-clear
 #Prepare traefik password
 export "HASHED_TFPASSWORD=$(openssl passwd -apr1 $TFPASSWORD)"
 clear
