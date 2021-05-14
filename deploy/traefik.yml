@@ -29,6 +29,9 @@ services:
         - traefik.http.routers.traefik-public-https.tls.certresolver=le
         - traefik.http.routers.traefik-public-https.middlewares=admin-auth
         - traefik.http.services.traefik-public.loadbalancer.server.port=8080
+        # Security headers middleware
+        - "traefik.http.middlewares.testHeader.headers.framedeny=true"
+        - "traefik.http.middlewares.testHeader.headers.sslredirect=true"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - traefik-public-certificates:/certificates
