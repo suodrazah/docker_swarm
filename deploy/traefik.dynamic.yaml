@@ -12,16 +12,19 @@ tls:
         - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
         - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
         - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+
 http:
   middlewares:
     security-headers:
       headers:
-        X-Xss-Protection: true
-        stsSeconds: 31536000
-        stsIncludeSubdomains: true
-        contentSecurityPolicy: upgrade-insecure-requests
-        customFrameOptionsValue: SAMEORIGIN
-        referrerPolicy: strict-origin-when-cross-origin
-        Cache-Control: public, max-age=15, must-revalidate
-        customResponseHeaders:
-          Permissions-Policy: accelerometer=(); ambient-light-sensor=(); autoplay=(self); camera=(); encrypted-media=(); fullscreen=(self); geolocation=(*); gyroscope=(); magnetometer=(); microphone=(); midi=(); payment=(); picture-in-picture=(*); speaker=(); sync-xhr=(); usb=(); vr=()interest-cohort=()
+        frameDeny: true
+        sslRedirect: true
+#        X-Xss-Protection: true
+#        stsSeconds: 31536000
+#        stsIncludeSubdomains: true
+#        contentSecurityPolicy: upgrade-insecure-requests
+#        customFrameOptionsValue: SAMEORIGIN
+#        referrerPolicy: strict-origin-when-cross-origin
+#        Cache-Control: public, max-age=15, must-revalidate
+#        customResponseHeaders:
+#          Permissions-Policy: accelerometer=(); ambient-light-sensor=(); autoplay=(self); camera=(); encrypted-media=(); fullscreen=(self); geolocation=(*); gyroscope=(); magnetometer=(); microphone=(); midi=(); payment=(); picture-in-picture=(*); speaker=(); sync-xhr=(); usb=(); vr=()interest-cohort=()
