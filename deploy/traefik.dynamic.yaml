@@ -16,8 +16,6 @@ http:
   middlewares:
     security-headers:
       headers:
-        customResponseHeaders:
-          Permissions-Policy: "accelerometer=(); ambient-light-sensor=(); autoplay=(self); camera=(); encrypted-media=(); fullscreen=(self); geolocation=(*); gyroscope=(); magnetometer=(); microphone=(); midi=(); payment=(); picture-in-picture=(*); speaker=(); sync-xhr=(); usb=(); vr=()interest-cohort=()"
         X-Xss-Protection: true
         stsSeconds: 31536000
         stsIncludeSubdomains: true
@@ -25,3 +23,5 @@ http:
         customFrameOptionsValue: "SAMEORIGIN"
         referrerPolicy: "strict-origin-when-cross-origin"
         Cache-Control: "public, max-age=15, must-revalidate"
+        customResponseHeaders:
+          Permissions-Policy: "accelerometer=(); ambient-light-sensor=(); autoplay=(self); camera=(); encrypted-media=(); fullscreen=(self); geolocation=(*); gyroscope=(); magnetometer=(); microphone=(); midi=(); payment=(); picture-in-picture=(*); speaker=(); sync-xhr=(); usb=(); vr=()interest-cohort=()"
