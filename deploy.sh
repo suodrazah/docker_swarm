@@ -1,6 +1,5 @@
 #!/bin/bash
 
-#Don't use this script....
 #Hello there
 #This script is a work in development, I mean...look at it, if it was a beloved family pet I'd put it down.
 #And I'm not an idiot, I realise I could have an if statement for the New deployment and configure variables in there.
