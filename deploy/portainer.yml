@@ -42,7 +42,6 @@ services:
         - traefik.http.routers.portainer-https.rule=Host(`portainer.${DOMAIN?Variable not set}`)
         - traefik.http.routers.portainer-https.entrypoints=https
         - traefik.http.routers.portainer-https.tls=true
-        - traefik.http.routers.portainer-https.tls.options=default@file
         - traefik.http.routers.portainer-https.tls.certresolver=le
         - traefik.http.services.portainer.loadbalancer.server.port=9000
 
