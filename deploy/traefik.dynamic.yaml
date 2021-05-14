@@ -14,10 +14,10 @@ tls:
         - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
 http:
   middlewares:
-    permissions-policy:
+    security-headers:
       headers:
         customResponseHeaders:
-          Permissions Policy: "accelerometer=(); ambient-light-sensor=(); autoplay=(self); camera=(); encrypted-media=(); fullscreen=(self); geolocation=(*); gyroscope=(); magnetometer=(); microphone=(); midi=(); payment=(); picture-in-picture=(*); speaker=(); sync-xhr=(); usb=(); vr=()interest-cohort=()"
+          Permissions-Policy: "accelerometer=(); ambient-light-sensor=(); autoplay=(self); camera=(); encrypted-media=(); fullscreen=(self); geolocation=(*); gyroscope=(); magnetometer=(); microphone=(); midi=(); payment=(); picture-in-picture=(*); speaker=(); sync-xhr=(); usb=(); vr=()interest-cohort=()"
           X-Xss-Protection: "1; mode=block"
           Strict-Transport-Security: "max-age=31536000; includeSubDomain"
           Content-Security-Policy: "upgrade-insecure-requests"
