@@ -24,6 +24,7 @@ services:
         - traefik.http.routers.traefik-public-https.rule=Host(`traefik.${DOMAIN?Variable not set}`)
         - traefik.http.routers.traefik-public-https.entrypoints=https
         - traefik.http.routers.traefik-public-https.tls=true
+        - traefik.http.routers.traefik-public-https.tls.options=secure@file
         - traefik.http.routers.traefik-public-https.service=api@internal
         - traefik.http.routers.traefik-public-https.tls.certresolver=le
         - traefik.http.routers.traefik-public-https.middlewares=admin-auth
@@ -31,8 +32,10 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - traefik-public-certificates:/certificates
+      - /home/${USER?Variable not set}/traefik.dynamic.yaml:/etc/traefik/traefik.dynamic.yaml
     command:
       - --providers.docker
+      - --providers.file.filename=/etc/traefik/traefik.dynamic.yaml
       - --providers.docker.constraints=Label(`traefik.constraint-label`, `traefik-public`)
       - --providers.docker.exposedbydefault=false
       - --providers.docker.swarmmode
