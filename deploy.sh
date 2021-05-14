@@ -18,6 +18,19 @@ if [ $UPDATE = "u" ]; then
     #Load user details
     . /home/$USER/deploy.conf
     
+    #Get authority
+    echo Configuring primary.$DOMAIN node
+    echo Admin Email - $EMAIL
+    echo Traefik User - $USERNAME
+    echo Timezone - $TIMEZONE
+    read -p "Is this correct? (Y/n): " PROCEED
+    PROCEED=${PROCEED:-Y}
+    if [ $PROCEED != "Y" ]; then
+        rm /home/$USER/deploy.sh
+        sleep 5
+        exit
+    fi
+    
     echo "Traefik dashboard password (new or same)?"
     #Prepare traefik password
     export "HASHED_TFPASSWORD=$(openssl passwd -apr1 $TFPASSWORD)"
@@ -85,18 +98,25 @@ if [ $PROCEED != "Y" ]; then
     sleep 5
     exit
 fi
+clear
 read -p "Admin email? (for certbot/https): " EMAIL
+clear
 read -p "Domain? e.g. example.com: " DOMAIN
+clear
 read -p "Traefik dashboard username?: " USERNAME
+clear
 echo "Traefik dashboard password?"
+clear
 #Prepare traefik password
 export "HASHED_TFPASSWORD=$(openssl passwd -apr1 $TFPASSWORD)"
+clear
 read -p "Timezone? (Australia/Hobart): " TIMEZONE
 TIMEZONE=${TIMEZONE:-Australia/Hobart}
+clear
 
 #Get authority
 echo Configuring primary.$DOMAIN node
-echo Admin Email - $ADMIN_EMAIL
+echo Admin Email - $EMAIL
 echo Traefik User - $USERNAME
 echo Traefik Pwd Hashed - $HASHED_TFPASSWORD
 echo Timezone - $TIMEZONE
