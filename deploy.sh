@@ -112,7 +112,7 @@ fi
 #Store user details
 rm -f deploy.conf
 echo "DOMAIN=$DOMAIN" >> deploy.conf
-echo "ADMIN_EMAIL=$ADMIN_EMAIL" >> deploy.conf
+echo "EMAIL=$EMAIL" >> deploy.conf
 echo "USERNAME=$USERNAME" >> deploy.conf
 echo "TIMEZONE=$TIMEZONE" >> deploy.conf
 
