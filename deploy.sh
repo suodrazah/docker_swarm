@@ -2,12 +2,10 @@
 
 #Hello there
 #This script is a work in development, I mean...look at it, if it was a beloved family pet I'd put it down.
-#And I'm not an idiot, I realise I could have an if statement for the New deployment and configure variables in there.
-#But I want update and new to be doing different things as this develops.
 #Good luck
 
 
-export BRANCH=main
+export BRANCH=dev
 
 #Update
 read -p "Update or New (u/N): " UPDATE
@@ -31,7 +29,7 @@ if [ $UPDATE = "u" ]; then
         exit
     fi
     
-    echo "Traefik dashboard password (new or same)?"
+    echo "New (or same) Traefik dashboard password?"
     #Prepare traefik password
     export "HASHED_TFPASSWORD=$(openssl passwd -apr1 $TFPASSWORD)"
 
@@ -106,7 +104,6 @@ clear
 read -p "Traefik dashboard username?: " USERNAME
 clear
 echo "Traefik dashboard password?"
-clear
 #Prepare traefik password
 export "HASHED_TFPASSWORD=$(openssl passwd -apr1 $TFPASSWORD)"
 clear
