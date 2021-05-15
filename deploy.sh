@@ -29,7 +29,7 @@ if [ $UPDATE = "u" ]; then
         exit
     fi
     
-    echo "NEw (or same) Traefik dashboard password?"
+    echo "New (or same) Traefik dashboard password?"
     #Prepare traefik password
     export "HASHED_TFPASSWORD=$(openssl passwd -apr1 $TFPASSWORD)"
 
