@@ -5,7 +5,7 @@
 #Good luck
 
 
-export BRANCH=dev
+export BRANCH=main
 
 #Update
 read -p "Update or New (u/N): " UPDATE
