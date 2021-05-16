@@ -68,7 +68,7 @@ if [ $UPDATE = "u" ]; then
     export USERNAME=$USERNAME
     docker stack deploy -c traefik.yml traefik
     docker stack deploy -c portainer.yml portainer
-    docker swarm update --task-history-limit=1
+    docker swarm update --task-history-limit=4
     clear
     echo "Update (probably) complete... please visit https://traefik."$DOMAIN" and https://portainer."$DOMAIN
     echo "Exiting in a few seconds"
@@ -167,7 +167,7 @@ export EMAIL=$EMAIL
 export USERNAME=$USERNAME
 docker stack deploy -c traefik.yml traefik
 docker stack deploy -c portainer.yml portainer
-docker swarm update --task-history-limit=1
+docker swarm update --task-history-limit=4
 clear
 echo "Deployment (probably) complete... please visit https://traefik."$DOMAIN" and https://portainer."$DOMAIN
 echo "Exiting in a few seconds"
