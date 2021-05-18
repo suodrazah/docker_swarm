@@ -7,6 +7,8 @@
 
 export BRANCH=main
 
+sudo apt install ufw && sudo ufw default deny incoming && sudo ufw default allow outgoing && sudo ufw allow 22/tcp && sudo ufw allow 80/tcp && sudo ufw allow 443/tcp && sudo ufw --force enable
+
 #Update
 read -p "Update or New (u/N): " UPDATE
 UPDATE=${UPDATE:-N}
@@ -96,6 +98,19 @@ if [ $PROCEED != "Y" ]; then
     sleep 5
     exit
 fi
+
+#Get ZeroTier config ready
+clear
+read -p "Zerotier Network ID?: (Press enter to ignore)" ZEROTIER
+ZEROTIER=${ZEROTIER:-X}
+    if [ $ZEROTIER != "X" ]; then
+    #Join zerotier network
+    curl -s https://install.zerotier.com | sudo bash
+    sudo zerotier-cli join $ZEROTIER
+    sleep 2
+    exit
+ fi
+
 clear
 read -p "Admin email? (for certbot/https): " EMAIL
 clear
