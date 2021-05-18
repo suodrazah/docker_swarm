@@ -28,7 +28,6 @@ if [ $UPDATE = "u" ]; then
     if [ $PROCEED != "Y" ]; then
         rm /home/$USER/deploy.sh
         sleep 5
-        exit
     fi
     
     echo "New (or same) Traefik dashboard password?"
