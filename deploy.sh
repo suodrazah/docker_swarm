@@ -100,14 +100,13 @@ fi
 
 #Get ZeroTier config ready
 clear
-read -p "Zerotier Network ID?: (Press enter to ignore)" ZEROTIER
+read -p "Zerotier Network ID? (Press enter to ignore): " ZEROTIER
 ZEROTIER=${ZEROTIER:-X}
     if [ $ZEROTIER != "X" ]; then
     #Join zerotier network
     curl -s https://install.zerotier.com | sudo bash
     sudo zerotier-cli join $ZEROTIER
     sleep 2
-    exit
  fi
 
 clear
@@ -136,7 +135,6 @@ PROCEED=${PROCEED:-Y}
 if [ $PROCEED != "Y" ]; then
     rm /home/$USER/deploy.sh
     sleep 5
-    exit
 fi
 
 #Store user details
