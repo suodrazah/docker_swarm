@@ -79,3 +79,6 @@ curl -fsSL https://get.docker.com -o get-docker.sh $$ sh get-docker.sh
 ```
 curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.sh -o deploy.sh && sh deploy.sh
 ```
+
+## To Do:
+* Fix Traefik headers
