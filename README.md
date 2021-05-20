@@ -45,7 +45,7 @@ docker swarm join-token worker
 ```
 * On the node to be added:
 ```
-apt update && apt full-upgrade && curl -fsSL https://get.docker.com -o get-docker.sh $$ sh get-docker.sh
+sudo apt update && sudo apt full-upgrade && curl -fsSL https://get.docker.com -o get-docker.sh $$ sh get-docker.sh
 ```
 ```
 sudo groupadd docker && sudo usermod -aG docker $USER && newgrp docker
