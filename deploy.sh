@@ -125,7 +125,7 @@ ZEROTIER=${ZEROTIER:-X}
 clear
 read -p "Admin email? (for certbot/https): " EMAIL
 clear
-read -p "Domain? e.g. example.com: " DOMAIN
+read -p "Domain? (example.com) " DOMAIN
 clear
 read -p "Traefik dashboard username?: " USERNAME
 clear
