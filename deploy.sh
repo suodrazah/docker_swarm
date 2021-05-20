@@ -1,4 +1,17 @@
 #!/bin/bash
+# Copyright 2021 suo
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# <http://www.gnu.org/licenses/>.
+
 
 #Hello there
 #This script is a work in development, I mean...look at it, if it was a beloved family pet I'd put it down.
