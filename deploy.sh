@@ -29,23 +29,12 @@ if [ $PROCEED != "Y" ]; then
     exit
 fi
 
-sudo apt install ufw && sudo ufw default deny incoming && sudo ufw default allow outgoing && sudo ufw allow 22/tcp && sudo ufw allow 80/tcp && sudo ufw allow 443/tcp && sudo ufw --force enable
-
-#Get ZeroTier config ready
-clear
-read -p "Zerotier Network ID? (Press enter to ignore): " ZEROTIER
-ZEROTIER=${ZEROTIER:-X}
-    if [ $ZEROTIER != "X" ]; then
-    #Join zerotier network
-    curl -s https://install.zerotier.com | sudo bash
-    sudo zerotier-cli join $ZEROTIER
-    sleep 2
- fi
-
-
 read -p "Admin email? (for certbot/https): " EMAIL
 
 read -p "Domain? (example.com) " DOMAIN
+
+read -p "Timezone? (Australia/Hobart): " TIMEZONE
+TIMEZONE=${TIMEZONE:-Australia/Hobart}
 
 read -p "Traefik dashboard username?: " USERNAME
 
@@ -53,9 +42,37 @@ echo "Traefik dashboard password?"
 
 #Prepare traefik password
 export "HASHED_TFPASSWORD=$(openssl passwd -apr1 $TFPASSWORD)"
+
 clear
-read -p "Timezone? (Australia/Hobart): " TIMEZONE
-TIMEZONE=${TIMEZONE:-Australia/Hobart}
+#Get ZeroTier config ready
+read -p "Zerotier Network ID? (Press enter to ignore): " ZEROTIER
+ZEROTIER=${ZEROTIER:-X}
+
+clear
+#Get authority
+echo "Configuring primary."DOMAIN" node"
+echo "Admin Email - "$EMAIL
+echo "Traefik User - "$USERNAME
+echo "Traefik Pwd Hashed - "$HASHED_TFPASSWORD
+echo "Timezone - "$TIMEZONE
+echo "Zerotier Network - "$ZEROTIER
+read -p "Is this correct? (Y/n): " PROCEED
+PROCEED=${PROCEED:-Y}
+if [ $PROCEED != "Y" ]; then
+    rm /home/$USER/deploy.sh
+    sleep 5
+fi
+
+if [ $ZEROTIER != "X" ]; then
+    #Join zerotier network
+    curl -s https://install.zerotier.com | sudo bash
+    clear
+    sudo zerotier-cli join $ZEROTIER
+    sleep 5
+ fi
+
+#Configure firewall
+sudo apt install ufw && sudo ufw default deny incoming && sudo ufw default allow outgoing && sudo ufw allow 22/tcp && sudo ufw allow 80/tcp && sudo ufw allow 443/tcp && sudo ufw --force enable
 
 clear
 #Get authority
