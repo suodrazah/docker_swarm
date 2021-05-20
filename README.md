@@ -37,23 +37,23 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 ## Add Nodes (same private IPv4 LAN)
 * Primary node:
 ```
-docker swarm join-token manager
-```
-```
 sudo groupadd docker && sudo usermod -aG docker $USER && newgrp docker
 ```
 ```
 curl -fsSL https://get.docker.com -o get-docker.sh $$ sh get-docker.sh
+```
+```
+docker swarm join-token manager
 ```
 * Worker node:
 ```
-docker swarm join-token worker
-```
-```
 sudo groupadd docker && sudo usermod -aG docker $USER && newgrp docker
 ```
 ```
 curl -fsSL https://get.docker.com -o get-docker.sh $$ sh get-docker.sh
+```
+```
+docker swarm join-token worker
 ```
 * Execute the resulting code on the node to be added
 * Add a label to the new node
