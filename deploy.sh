@@ -40,7 +40,7 @@ if [ $UPDATE = "u" ]; then
     PROCEED=${PROCEED:-Y}
     if [ $PROCEED != "Y" ]; then
         rm /home/$USER/deploy.sh
-        sleep 5
+        sleep 2
     fi
     
     echo "New (or same) Traefik dashboard password?"
@@ -83,7 +83,6 @@ if [ $UPDATE = "u" ]; then
     docker stack deploy -c traefik.yml traefik
     docker stack deploy -c portainer.yml portainer
     docker swarm update --task-history-limit=4
-    clear
     echo "Update (probably) complete... please visit https://traefik."$DOMAIN" and https://portainer."$DOMAIN
     echo "Exiting in a few seconds"
     sleep 10
