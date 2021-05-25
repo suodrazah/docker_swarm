@@ -74,20 +74,6 @@ if [ $ZEROTIER != "X" ]; then
 #Configure firewall
 sudo apt install ufw && sudo ufw default deny incoming && sudo ufw default allow outgoing && sudo ufw allow 22/tcp && sudo ufw allow 80/tcp && sudo ufw allow 443/tcp && sudo ufw --force enable
 
-clear
-#Get authority
-echo Configuring primary.$DOMAIN node
-echo Admin Email - $EMAIL
-echo Traefik User - $USERNAME
-echo Traefik Pwd Hashed - $HASHED_TFPASSWORD
-echo Timezone - $TIMEZONE
-read -p "Is this correct? (Y/n): " PROCEED
-PROCEED=${PROCEED:-Y}
-if [ $PROCEED != "Y" ]; then
-    rm /home/$USER/deploy.sh
-    sleep 5
-fi
-
 #Update
 sudo /usr/bin/apt-get update && sudo /usr/bin/apt-get full-upgrade -y
 export HOSTNAME="primary.$DOMAIN"
