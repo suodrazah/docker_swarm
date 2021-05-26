@@ -82,8 +82,7 @@ sudo hostname -F /etc/hostname
 sudo timedatectl set-timezone $TIMEZONE
 
 ##Install Docker
-curl -fsSL get.docker.com -o get-docker.sh
-CHANNEL=stable sh get-docker.sh
+curl -fsSL get.docker.com -o get-docker.sh && sh get-docker.sh
 rm get-docker.sh
 
 #Initiate Docker Swarm
