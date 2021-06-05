@@ -46,7 +46,6 @@ services:
       - db:/var/lib/mysql
     networks:
       - internal-network
-      - traefik-public
     environment:
       - MYSQL_DATABASE=db
       - MYSQL_USER=db
