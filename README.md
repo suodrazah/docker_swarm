@@ -43,15 +43,15 @@ docker swarm join-token manager
 ```
 docker swarm join-token worker
 ```
-* On the node to be added:
+* On the node to be added (not as root):
 ```
 sudo groupadd docker && sudo usermod -aG docker $USER && newgrp docker
 ```
 ```
-sudo apt update && sudo apt full-upgrade -y && curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
+curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/add_worker.sh -o add_worker.sh && sh add_worker.sh
 ```
 ```
-e.g. docker swarm join --token ###
+e.g. docker swarm join --token ##
 ```
 
 * Add a label to the new node
