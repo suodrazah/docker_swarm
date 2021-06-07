@@ -51,7 +51,7 @@ sudo groupadd docker && sudo usermod -aG docker $USER && newgrp docker
 ```
 curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/add_worker.sh -o add_worker.sh && sh add_worker.sh
 ```
-`docker swarm join --token KEY IP:2377` - output from join-token command above.
+```docker swarm join --token KEY IP:2377``` - output from join-token command above.
 
 * Add a label to the new node
    * `Portainer`
