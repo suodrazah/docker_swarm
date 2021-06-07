@@ -36,11 +36,11 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 
 ## Add Nodes
 * Configure your [firewalls](https://docs.docker.com/engine/swarm/swarm-tutorial/#open-protocols-and-ports-between-the-hosts)
-* Primary node:
+* To add a Primary/Manager node:
 ```
 docker swarm join-token manager
 ```
-* Worker node:
+* To add a Worker node:
 ```
 docker swarm join-token worker
 ```
@@ -51,7 +51,10 @@ sudo groupadd docker && sudo usermod -aG docker $USER && newgrp docker
 ```
 curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/add_worker.sh -o add_worker.sh && sh add_worker.sh
 ```
-```docker swarm join --token KEY IP:2377``` - output from join-token command above.
+* Output from join-token command above
+```
+docker swarm join --token KEY IP:2377
+```
 
 * Add a label to the new node
    * `Portainer`
@@ -69,13 +72,3 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/add_wor
    * `Name` - e.g. client1-ignition
    * `Web editor` - copy contents of stack.yml file
    * `Environment variables` - as described by the stack comments
-
-## Update:
-* Take a server snapshot or backup
-* Run the script again
-```
-curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.sh -o deploy.sh && sh deploy.sh
-```
-
-## To Do:
-* Fix Traefik headers
