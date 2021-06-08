@@ -1,15 +1,14 @@
 ## Set Stack Environment Variables ##
-  #ERPNEXT_VERSION=v13.4.1
-  #FRAPPE_VERSION=v13.4.1
-  #DOMAIN=subdomain.example.domain
-  #NODE=worker1, etc
-  #STACK=name of this stack for traefik reference
-  #MARIADB_HOST=mariadb, feel free to use external
-  #MYSQL_ROOT_PASSWORD=somepassword
-  #ADMIN_PASSWORD=somepassword
+  # ERPNEXT_VERSION=v13.4.1
+  # FRAPPE_VERSION=v13.4.1
+  # DOMAIN=subdomain.example.domain
+  # NODE=worker1, etc
+  # STACK=name of this stack for traefik reference
+  # MARIADB_HOST=mariadb, feel free to use external
+  # MYSQL_ROOT_PASSWORD=somepassword
+  # ADMIN_PASSWORD=somepassword
 
 ## Create Portainer config "erp-mariadb" ##
-#####
 #    > [mysqld]
 #    > character-set-client-handshake = FALSE
 #    > character-set-server = utf8mb4
@@ -17,7 +16,6 @@
 #    > 
 #    > [mysql]
 #    > default-character-set = utf8mb4
-#####
 
 #Copy contents of stack and hit deploy, site will be up within minutes
 
