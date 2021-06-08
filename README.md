@@ -36,11 +36,11 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 
 ## Add Nodes
 * Configure your [firewalls](https://docs.docker.com/engine/swarm/swarm-tutorial/#open-protocols-and-ports-between-the-hosts)
-* To add a Primary/Manager node:
+* To add a Primary/Manager node run this on a master node and copy the output:
 ```
 docker swarm join-token manager
 ```
-* To add a Worker node:
+* To add a Worker node run this on a master node and copy the output:
 ```
 docker swarm join-token worker
 ```
@@ -51,7 +51,7 @@ sudo groupadd docker && sudo usermod -aG docker $USER && newgrp docker
 ```
 curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/add_worker.sh -o add_worker.sh && sh add_worker.sh
 ```
-* Output from join-token command above
+* Output you copied earlier from join-token command above
 ```
 docker swarm join --token KEY IP:2377
 ```
