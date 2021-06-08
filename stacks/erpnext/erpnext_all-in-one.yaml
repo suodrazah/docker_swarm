@@ -24,7 +24,7 @@ services:
 
   erpnext-worker:
     image: frappe/erpnext-worker:${ERPNEXT_VERSION}
-    restart: on-failure
+    restart: "no"
     networks:
       - internal-network
     command: new
