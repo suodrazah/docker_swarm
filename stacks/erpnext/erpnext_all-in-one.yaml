@@ -1,0 +1,294 @@
+## Set Stack Environment Variables ##
+  #ERPNEXT_VERSION=v13.4.1
+  #FRAPPE_VERSION=v13.4.1
+  #DOMAIN=subdomain.example.domain
+  #NODE=worker1, etc
+  #STACK=name of this stack for traefik reference
+  #MARIADB_HOST=mariadb, feel free to use external
+  #MYSQL_ROOT_PASSWORD=somepassword
+  #ADMIN_PASSWORD=somepassword
+
+## Create Portainer config "erp-mariadb" ##
+#####
+#    > [mysqld]
+#    > character-set-client-handshake = FALSE
+#    > character-set-server = utf8mb4
+#    > collation-server = utf8mb4_unicode_ci
+#    > 
+#    > [mysql]
+#    > default-character-set = utf8mb4
+#####
+
+#Copy contents of stack and hit deploy, site will be up within minutes
+
+version: '3.3'
+
+services:
+
+  erpnext-worker:
+    image: frappe/erpnext-worker:${ERPNEXT_VERSION}
+    restart: on-failure
+    networks:
+      - internal-network
+    command: new
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - SITE_NAME=${DOMAIN}
+      - INSTALL_APPS=erpnext
+      - MARIADB_HOST=${MARIADB_HOST}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+    depends_on:
+      - erpnext-nginx
+      - erpnext-python
+      - frappe-socketio
+      - frappe-worker-default
+      - frappe-worker-short
+      - frappe-worker-long
+      - frappe-schedule
+      - redis-cache
+      - redis-queue
+      - redis-socketio
+      - mariadb
+    volumes:
+      - sites-vol:/home/frappe/frappe-bench/sites:rw
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+
+  erpnext-nginx:
+    image: frappe/erpnext-nginx:${ERPNEXT_VERSION}
+    restart: on-failure
+    networks:
+      - internal-network
+      - traefik-public
+    environment:
+      - UPSTREAM_REAL_IP_ADDRESS=10.0.0.0/8
+      - FRAPPE_PY=erpnext-python
+      - FRAPPE_PY_PORT=8000
+      - FRAPPE_SOCKETIO=frappe-socketio
+      - SOCKETIO_PORT=9000
+    depends_on:
+      - erpnext-python
+      - frappe-socketio
+      - frappe-worker-default
+      - frappe-worker-long
+      - frappe-worker-short
+    links:
+      - erpnext-python
+      - frappe-socketio
+      - frappe-worker-default
+      - frappe-worker-long
+      - frappe-worker-short
+    volumes:
+      - sites-vol:/var/www/html/sites:rw
+      - assets-vol:/assets:rw
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=traefik-public"
+        - "traefik.constraint-label=traefik-public"
+        - "traefik.http.routers.${STACK?Variable not set}-http.rule=Host(`${DOMAIN?Variable not set}`)"
+        - "traefik.http.routers.${STACK?Variable not set}-http.entrypoints=http"
+        - "traefik.http.routers.${STACK?Variable not set}-http.middlewares=https-redirect,secHeaders@file"
+        - "traefik.http.routers.${STACK?Variable not set}-https.rule=Host(`${DOMAIN?Variable not set}`)"
+        - "traefik.http.routers.${STACK?Variable not set}-https.entrypoints=https"
+        - "traefik.http.routers.${STACK?Variable not set}-https.tls=true"
+        - "traefik.http.routers.${STACK?Variable not set}-https.tls.certresolver=le"
+        - "traefik.http.services.${STACK?Variable not set}.loadbalancer.server.port=80"
+
+  erpnext-python:
+    image: frappe/erpnext-worker:${ERPNEXT_VERSION}
+    restart: on-failure
+    networks:
+      - internal-network
+    environment:
+      - MARIADB_HOST=${MARIADB_HOST}
+      - REDIS_CACHE=redis-cache:6379
+      - REDIS_QUEUE=redis-queue:6379
+      - REDIS_SOCKETIO=redis-socketio:6379
+      - SOCKETIO_PORT=9000
+      - AUTO_MIGRATE=1
+    volumes:
+      - sites-vol:/home/frappe/frappe-bench/sites:rw
+      - assets-vol:/home/frappe/frappe-bench/sites/assets:rw
+      - logs-vol:/home/frappe/frappe-bench/logs:rw
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+
+  frappe-socketio:
+    image: frappe/frappe-socketio:${FRAPPE_VERSION}
+    restart: on-failure
+    networks:
+      - internal-network
+    depends_on:
+      - redis-socketio
+    links:
+      - redis-socketio
+    volumes:
+      - sites-vol:/home/frappe/frappe-bench/sites:rw
+      - logs-vol:/home/frappe/frappe-bench/logs:rw
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+
+  frappe-worker-default:
+    image: frappe/erpnext-worker:${ERPNEXT_VERSION}
+    restart: on-failure
+    networks:
+      - internal-network
+    command: worker
+    depends_on:
+      - redis-queue
+      - redis-cache
+    links:
+      - redis-queue
+      - redis-cache
+    volumes:
+      - sites-vol:/home/frappe/frappe-bench/sites:rw
+      - logs-vol:/home/frappe/frappe-bench/logs:rw
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+
+  frappe-worker-short:
+    image: frappe/erpnext-worker:${ERPNEXT_VERSION}
+    restart: on-failure
+    networks:
+      - internal-network
+    command: worker
+    environment:
+      - WORKER_TYPE=short
+    depends_on:
+      - redis-queue
+      - redis-cache
+    links:
+      - redis-queue
+      - redis-cache
+    volumes:
+      - sites-vol:/home/frappe/frappe-bench/sites:rw
+      - logs-vol:/home/frappe/frappe-bench/logs:rw
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+
+  frappe-worker-long:
+    image: frappe/erpnext-worker:${ERPNEXT_VERSION}
+    restart: on-failure
+    networks:
+      - internal-network
+    command: worker
+    environment:
+      - WORKER_TYPE=long
+    depends_on:
+      - redis-queue
+      - redis-cache
+    links:
+      - redis-queue
+      - redis-cache
+    volumes:
+      - sites-vol:/home/frappe/frappe-bench/sites:rw
+      - logs-vol:/home/frappe/frappe-bench/logs:rw
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+
+  frappe-schedule:
+    image: frappe/erpnext-worker:${ERPNEXT_VERSION}
+    restart: on-failure
+    networks:
+      - internal-network
+    command: schedule
+    depends_on:
+      - redis-queue
+      - redis-cache
+    links:
+      - redis-queue
+      - redis-cache
+    volumes:
+      - sites-vol:/home/frappe/frappe-bench/sites:rw
+      - logs-vol:/home/frappe/frappe-bench/logs:rw
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+
+  redis-cache:
+    image: redis:latest
+    restart: on-failure
+    networks:
+      - internal-network
+    volumes:
+      - redis-cache-vol:/data
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+
+  redis-queue:
+    image: redis:latest
+    restart: on-failure
+    networks:
+      - internal-network
+    volumes:
+      - redis-queue-vol:/data
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+
+  redis-socketio:
+    image: redis:latest
+    restart: on-failure
+    networks:
+      - internal-network
+    volumes:
+      - redis-socketio-vol:/data
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+
+  mariadb:
+    image: mariadb:10.3
+    restart: on-failure
+    networks:
+      - internal-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    configs:
+      - source: erp-mariadb
+        target: /etc/mysql/conf.d/frappe.cnf
+    volumes:
+      - mariadb-vol:/var/lib/mysql
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+
+volumes:
+  mariadb-vol:
+  redis-cache-vol:
+  redis-queue-vol:
+  redis-socketio-vol:
+  assets-vol:
+  sites-vol:
+  logs-vol:
+
+configs:
+  erp-mariadb:
+    external: true
+
+networks:
+  internal-network:
+  traefik-public:
+    external: true
