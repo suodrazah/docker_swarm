@@ -78,4 +78,4 @@ docker swarm join --token KEY IP:2377
 
  ## To Do
  
- * ** Fix Traefik headers
+ * Fix Traefik headers
