@@ -30,7 +30,7 @@ services:
       placement:
         constraints:
           - node.role == manager
-          - node.labels.primary == true
+          - node.labels.manager == true
       labels:
         - "traefik.enable=true"
         - "traefik.docker.network=traefik-public"
