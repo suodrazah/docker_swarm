@@ -50,7 +50,7 @@ ZEROTIER=${ZEROTIER:-X}
 
 clear
 #Get authority
-echo "Configuring primary."DOMAIN" node"
+echo "Configuring manager."DOMAIN" node"
 echo "Admin Email - "$EMAIL
 echo "Traefik User - "$USERNAME
 echo "Traefik Pwd Hashed - "$HASHED_TFPASSWORD
@@ -76,7 +76,7 @@ if [ $ZEROTIER != "X" ]; then
 
 #Update
 sudo /usr/bin/apt-get update && sudo /usr/bin/apt-get full-upgrade -y
-export HOSTNAME="primary.$DOMAIN"
+export HOSTNAME="manager.$DOMAIN"
 echo $HOSTNAME | sudo tee /etc/hostname > /dev/null 2>&1
 sudo hostname -F /etc/hostname
 sudo timedatectl set-timezone $TIMEZONE
@@ -93,7 +93,7 @@ docker network create --driver=overlay traefik-public
 
 #Add label to this node so we can constrain traefik and portainer to it
 export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}')
-docker node update --label-add primary=true $NODE_ID
+docker node update --label-add manager=true $NODE_ID
 
 #Get traefik ready
 curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/$BRANCH/deploy/traefik.dynamic.yaml -o /home/${USER?Variable not set}/traefik.dynamic.yaml
@@ -106,8 +106,8 @@ export DOMAIN=$DOMAIN
 export HASHED_TFPASSWORD=$HASHED_TFPASSWORD
 export EMAIL=$EMAIL
 export USERNAME=$USERNAME
-docker stack deploy -c traefik.yml primary_traefik
-docker stack deploy -c portainer.yml primary_portainer
+docker stack deploy -c traefik.yml manager_traefik
+docker stack deploy -c portainer.yml manager_portainer
 docker swarm update --task-history-limit=4
 clear
 echo "Deployment (probably) complete... please visit https://traefik."$DOMAIN" and https://portainer."$DOMAIN
