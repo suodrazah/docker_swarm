@@ -12,8 +12,8 @@
 # GNU General Public License for more details.
 # <http://www.gnu.org/licenses/>.
 
-read -p "Worker Hostname?: " HOSTNAME
-echo $HOSTNAME | sudo tee /etc/hostname > /dev/null 2>&1
+read -p "Worker Domain Name?: " DOMAIN
+echo $DOMAIN | sudo tee /etc/hostname > /dev/null 2>&1
 sudo hostname -F /etc/hostname
 sudo apt update && sudo apt full-upgrade -y && curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
 exit
