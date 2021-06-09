@@ -24,7 +24,7 @@ services:
 
   erpnext-worker:
     image: frappe/erpnext-worker:${ERPNEXT_VERSION}
-    restart: "no"
+
     networks:
       - internal-network
     command: new
@@ -49,6 +49,11 @@ services:
     volumes:
       - sites-vol:/home/frappe/frappe-bench/sites:rw
     deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 10
+        window: 120s
       placement:
         constraints:
         - node.labels.$NODE == true
