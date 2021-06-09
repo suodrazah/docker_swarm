@@ -75,3 +75,7 @@ docker swarm join --token KEY IP:2377
    * `Name` - e.g. client1-ignition
    * `Web editor` - copy contents of stack.yml file
    * `Environment variables` - as described by the stack comments
+
+ ## To Do
+ 
+ * ** Fix Traefik headers
