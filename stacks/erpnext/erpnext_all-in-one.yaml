@@ -26,9 +26,31 @@ version: '3.3'
 
 services:
 
+  adminer:
+    image: adminer
+    networks:
+      - internal-network
+      - traefik-public
+    restart: always
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=traefik-public"
+        - "traefik.constraint-label=traefik-public"
+        - "traefik.http.routers.${STACK?Variable not set}-adminer-http.rule=Host(`adminer.${DOMAIN?Variable not set}`)"
+        - "traefik.http.routers.${STACK?Variable not set}-adminer-http.entrypoints=http"
+        - "traefik.http.routers.${STACK?Variable not set}-adminer-http.middlewares=https-redirect,secHeaders@file"
+        - "traefik.http.routers.${STACK?Variable not set}-adminer-https.rule=Host(`adminer.${DOMAIN?Variable not set}`)"
+        - "traefik.http.routers.${STACK?Variable not set}-adminer-https.entrypoints=https"
+        - "traefik.http.routers.${STACK?Variable not set}-adminer-https.tls=true"
+        - "traefik.http.routers.${STACK?Variable not set}-adminer-https.tls.certresolver=le"
+        - "traefik.http.services.${STACK?Variable not set}-adminer.loadbalancer.server.port=8080"
+ 
   erpnext-worker:
     image: frappe/erpnext-worker:${ERPNEXT_VERSION}
-
     networks:
       - internal-network
     command: new
@@ -46,9 +68,7 @@ services:
       - frappe-worker-short
       - frappe-worker-long
       - frappe-schedule
-      - redis-cache
-      - redis-queue
-      - redis-socketio
+      - redis
       - mariadb
     volumes:
       - sites-vol:/home/frappe/frappe-bench/sites:rw
@@ -107,9 +127,9 @@ services:
       - internal-network
     environment:
       - MARIADB_HOST=${MARIADB_HOST}
-      - REDIS_CACHE=redis-cache:6379
-      - REDIS_QUEUE=redis-queue:6379
-      - REDIS_SOCKETIO=redis-socketio:6379
+      - REDIS_CACHE=redis:6379/0
+      - REDIS_QUEUE=redis:6379/1
+      - REDIS_SOCKETIO=redis:6379/2
       - SOCKETIO_PORT=9000
       - AUTO_MIGRATE=1
     volumes:
@@ -127,7 +147,7 @@ services:
     networks:
       - internal-network
     depends_on:
-      - redis-socketio
+      - redis
     volumes:
       - sites-vol:/home/frappe/frappe-bench/sites:rw
       - logs-vol:/home/frappe/frappe-bench/logs:rw
@@ -143,8 +163,7 @@ services:
       - internal-network
     command: worker
     depends_on:
-      - redis-queue
-      - redis-cache
+      - redis
     volumes:
       - sites-vol:/home/frappe/frappe-bench/sites:rw
       - logs-vol:/home/frappe/frappe-bench/logs:rw
@@ -162,8 +181,7 @@ services:
     environment:
       - WORKER_TYPE=short
     depends_on:
-      - redis-queue
-      - redis-cache
+      - redis
     volumes:
       - sites-vol:/home/frappe/frappe-bench/sites:rw
       - logs-vol:/home/frappe/frappe-bench/logs:rw
@@ -181,8 +199,7 @@ services:
     environment:
       - WORKER_TYPE=long
     depends_on:
-      - redis-queue
-      - redis-cache
+      - redis
     volumes:
       - sites-vol:/home/frappe/frappe-bench/sites:rw
       - logs-vol:/home/frappe/frappe-bench/logs:rw
@@ -198,8 +215,7 @@ services:
       - internal-network
     command: schedule
     depends_on:
-      - redis-queue
-      - redis-cache
+      - redis
     volumes:
       - sites-vol:/home/frappe/frappe-bench/sites:rw
       - logs-vol:/home/frappe/frappe-bench/logs:rw
@@ -208,37 +224,13 @@ services:
         constraints:
         - node.labels.$NODE == true
 
-  redis-cache:
+  redis:
     image: redis:latest
     restart: on-failure
     networks:
       - internal-network
     volumes:
-      - redis-cache-vol:/data
-    deploy:
-      placement:
-        constraints:
-        - node.labels.$NODE == true
-
-  redis-queue:
-    image: redis:latest
-    restart: on-failure
-    networks:
-      - internal-network
-    volumes:
-      - redis-queue-vol:/data
-    deploy:
-      placement:
-        constraints:
-        - node.labels.$NODE == true
-
-  redis-socketio:
-    image: redis:latest
-    restart: on-failure
-    networks:
-      - internal-network
-    volumes:
-      - redis-socketio-vol:/data
+      - redis-vol:/data
     deploy:
       placement:
         constraints:
@@ -261,11 +253,10 @@ services:
         constraints:
         - node.labels.$NODE == true
 
+
 volumes:
+  redis-vol:
   mariadb-vol:
-  redis-cache-vol:
-  redis-queue-vol:
-  redis-socketio-vol:
   assets-vol:
   sites-vol:
   logs-vol:
