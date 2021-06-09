@@ -11,9 +11,10 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 
 ## Prerequisites:
 * **_Tested on_ Ubuntu Server 20.04 LTS and Debian 10 Local or VPS.**
+  * [VPS at Linode](https://www.linode.com/products/shared/) _$5+/month_
   * [VPS at OVH](https://ca.ovh.com/au/order/vps/) _$5+/month_
   * [EC2 VPS at AWS](https://aws.amazon.com/free/) _free tier for 12 months_
-* **SSH Access as sudo user (not root)**
+* **SSH Access as sudo user (if no user available - create one, add to sudo group, login as user)**
 * **Firewall configured to allow 80/tcp, 443/tcp, 22/tcp**
 * **Public, static IP**
 * **Domain pointing to servers public IP address**
@@ -26,7 +27,7 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 * **Wait a minute or so for Traefik to come up after the script finishes**
 
 ## Deployment:
-* **This will bring up Traefik and Portainer on a primary Docker Swarm node**
+* **This will bring up Traefik and Portainer on a manager Docker Swarm node**
 ```
 sudo groupadd docker && sudo usermod -aG docker $USER && newgrp docker
 ```
@@ -35,12 +36,12 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 ```
 
 ## Add Nodes
-* Configure your [firewalls](https://docs.docker.com/engine/swarm/swarm-tutorial/#open-protocols-and-ports-between-the-hosts)
-* To add a Primary/Manager node run this on a master node and copy the output:
+* Additional configuration of your [firewalls](https://docs.docker.com/engine/swarm/swarm-tutorial/#open-protocols-and-ports-between-the-hosts) is required
+* To add a manager node run this on an existing manager node and copy the output:
 ```
 docker swarm join-token manager
 ```
-* To add a Worker node run this on a master node and copy the output:
+* To add a worker node run this on a manager node and copy the output:
 ```
 docker swarm join-token worker
 ```
