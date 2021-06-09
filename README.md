@@ -36,7 +36,8 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 ```
 
 ## Add Nodes
-* Additional configuration of your [firewalls](https://docs.docker.com/engine/swarm/swarm-tutorial/#open-protocols-and-ports-between-the-hosts) is required
+* Additional configuration of your [firewalls](https://docs.docker.com/engine/swarm/swarm-tutorial/#open-protocols-and-ports-between-the-hosts) is required for swarm communication
+
 * To add a manager node run this on an existing manager node and copy the output:
 ```
 docker swarm join-token manager
