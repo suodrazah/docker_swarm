@@ -68,6 +68,7 @@ docker swarm join --token KEY IP:2377
    * `Value` - "True"
 
 ## Extension:
+* Read the comments at the top of the stack you wish to deploy
 * Create a new stack
    * `Portainer`
    * `Stacks`
