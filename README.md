@@ -14,7 +14,7 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
   * [VPS at Linode](https://www.linode.com/products/shared/) _$5+/month_
   * [VPS at OVH](https://ca.ovh.com/au/order/vps/) _$5+/month_
   * [EC2 VPS at AWS](https://aws.amazon.com/free/) _free tier for 12 months_
-* **SSH Access as sudo user (if no user available - create one, add to sudo group, login as user)**
+* **SSH Access as sudo user (not root)**
 * **Firewall configured to allow 80/tcp, 443/tcp, 22/tcp**
 * **Public, static IP**
 * **Domain pointing to servers public IP address**
