@@ -10,7 +10,7 @@ services:
     deploy:
       placement:
         constraints:
-          - node.labels.primary == true
+          - node.labels.manager == true
       labels:
         - "traefik.enable=true"
         - "traefik.docker.network=traefik-public"
