@@ -31,7 +31,7 @@ fi
 
 read -p "Admin email? (for certbot/https): " EMAIL
 
-read -p "Domain? (example.com) " DOMAIN
+read -p "Domain? (e.g. example.com) " DOMAIN
 
 read -p "Timezone? (Australia/Hobart): " TIMEZONE
 TIMEZONE=${TIMEZONE:-Australia/Hobart}
