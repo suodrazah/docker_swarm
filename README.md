@@ -36,7 +36,7 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 ```
 
 ## Add Nodes
-* Domain shall be configured to point at the new node public IP. Note this domain for entry as the node domain when requested upon execution of the script.
+* Specific subdomain shall be configured to point at the new node public IP. Note this subdomain for entry as the node domain when requested upon execution of the script.
 * Additional configuration of your [firewalls](https://docs.docker.com/engine/swarm/swarm-tutorial/#open-protocols-and-ports-between-the-hosts) is required for swarm communication
 
 * To add a manager node run this on an existing manager node and copy the output:
