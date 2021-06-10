@@ -96,7 +96,7 @@ docker swarm init
 #Create traefik overlay networks
 ENCRYPT=${ENCRYPT:-N}
 if [ $ENCRYPT = "y" ]; then
-    docker network create --opt encrypted --driver=overlay traefik-public
+    docker network create --driver=overlay --opt encrypted traefik-public
 fi
 
 if [ $ENCRYPT = "N" ]; then
