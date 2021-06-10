@@ -5,6 +5,7 @@
   # STACK=name of this stack for traefik reference
   # IGPASSWORD=Ignition password
   # IGDBPASSWORD=Ignition database password
+  # Note: Configure database connection in Igniton as MariaDB, user="db", URL="jdbc:mariadb://mariadb:3306/db"
 
 version: '3.3'
 
