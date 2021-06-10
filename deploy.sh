@@ -44,6 +44,10 @@ echo "Traefik dashboard password?"
 export "HASHED_TFPASSWORD=$(openssl passwd -apr1 $TFPASSWORD)"
 
 clear
+
+read -p "Do you want to encrypt communication between containers in the swarm? If you don't know what you are doing, select No (y/N): " ENCRYPT
+
+clear
 #Get ZeroTier config ready
 read -p "Zerotier Network ID? (Press enter to ignore): " ZEROTIER
 ZEROTIER=${ZEROTIER:-X}
@@ -88,8 +92,16 @@ rm get-docker.sh
 #Initiate Docker Swarm
 docker swarm init
 
+
 #Create traefik overlay networks
-docker network create --driver=overlay traefik-public
+ENCRYPT=${ENCRYPT:-N}
+if [ $ENCRYPT = "y" ]; then
+    docker network create --opt encrypted --driver=overlay traefik-public
+fi
+
+if [ $ENCRYPT = "N" ]; then
+    docker network create --driver=overlay traefik-public
+fi
 
 #Add label to this node so we can constrain traefik and portainer to it
 export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}')
