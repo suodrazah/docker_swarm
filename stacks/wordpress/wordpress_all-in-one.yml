@@ -1,0 +1,67 @@
+  
+# 1
+## Set Stack Environment Variables ##
+  # DOMAIN=subdomain.example.domain
+  # NODE=worker1, etc
+  # STACK=name of this stack for traefik reference
+  # DBPASSWORD=Wordpress database password
+
+version: '3.3'
+
+services:
+  wp:
+    image:  wordpress
+    volumes:
+      - wp-data:/var/www/html
+    networks:
+      - internal-network
+      - traefik-public
+    environment:
+      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_USER=db
+      - WORDPRESS_DB_PASSWORD=${DBPASSWORD?Variable not set}
+      - WORDPRESS_DB_NAME=db
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public
+        - traefik.constraint-label=traefik-public
+        - traefik.http.routers.${STACK?Variable not set}_wp-http.rule=Host(`${DOMAIN?Variable not set}`)
+        - traefik.http.routers.${STACK?Variable not set}_wp-http.entrypoints=http
+        - traefik.http.routers.${STACK?Variable not set}_wp-http.middlewares=https-redirect
+        - traefik.http.routers.${STACK?Variable not set}_wp-https.rule=Host(`${DOMAIN?Variable not set}`)
+        - traefik.http.routers.${STACK?Variable not set}_wp-https.entrypoints=https
+        - traefik.http.routers.${STACK?Variable not set}_wp-https.tls=true
+        - traefik.http.routers.${STACK?Variable not set}_wp-https.tls.certresolver=le
+        - traefik.http.services.${STACK?Variable not set}_wp.loadbalancer.server.port=80
+
+  db:
+    image:  mariadb
+    volumes:
+      - db_config:/config
+      - db:/var/lib/mysql
+    networks:
+      - internal-network
+      - traefik-public
+    environment:
+      - MYSQL_DATABASE=db
+      - MYSQL_USER=db
+      - MYSQL_PASSWORD=${DBPASSWORD?Variable not set}
+      - MYSQL_RANDOM_ROOT_PASSWORD='1'
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+
+networks:
+  internal-network:
+  traefik-public:
+    external: true
+
+volumes:
+  wp-data:
+  db_config:
+  db:
