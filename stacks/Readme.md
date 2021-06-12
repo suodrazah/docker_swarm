@@ -10,4 +10,4 @@
    * `Add Stack`
    * `Name` - e.g. client1-ignition
    * `Web editor` - copy contents of stack.yml file
-   * `Environment variables` - as described by the stack comments
+   * `Environment variables` - as described by the stack header comments, including other instructions.
