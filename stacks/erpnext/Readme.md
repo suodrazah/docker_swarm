@@ -12,7 +12,7 @@ default-character-set = utf8mb4
 
 2. Set Stack Environment Variables
 
-ERPNEXT_VERSION=v13.4.1
+ERPNEXT_VERSION=v13.4.1 \
 FRAPPE_VERSION=v13.4.1
 DOMAIN=subdomain.example.domain
 NODE=manager, worker1, etc
