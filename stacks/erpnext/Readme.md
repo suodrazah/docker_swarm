@@ -1,6 +1,6 @@
 1.Create Portainer config "erp-mariadb"
 
-## Start of erp-mariadb ##
+\##\ Start of erp-mariadb \##\
 [mysqld]
 character-set-client-handshake = FALSE
 character-set-server = utf8mb4
@@ -8,7 +8,7 @@ collation-server = utf8mb4_unicode_ci
  
 [mysql]
 default-character-set = utf8mb4
-## End of erp-mariadb ##
+\##\ End of erp-mariadb \##\
 
 2. Set Stack Environment Variables
 
