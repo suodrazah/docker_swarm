@@ -1,9 +1,10 @@
-# <p align="center">Docker Swarm</p>
-### <p align="center">A deployment method and collection of basic docker swarm stacks.</p>
+
+# <p align="center">Extension</p>
+### <p align="center">A collection of basic docker swarm stacks</p>
 
 ## Extension:
 * Read the comments at the top of the stack you wish to deploy
-* Create a new stack
+* Create a new stack in Portainer:
    * `Portainer`
    * `Stacks`
    * `Add Stack`
