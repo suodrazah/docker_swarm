@@ -35,6 +35,16 @@ sudo groupadd docker && sudo usermod -aG docker $USER && newgrp docker
 curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.sh -o deploy.sh && sh deploy.sh
 ```
 
+## Extension (i.e. add self hosted software):
+* Read the comments at the top of the stack you wish to deploy
+* Create a new stack
+   * `Portainer`
+   * `Stacks`
+   * `Add Stack`
+   * `Name` - e.g. client1-ignition
+   * `Web editor` - copy contents of stack.yml file
+   * `Environment variables` - as described by the stack comments
+
 ## Add Nodes
 * Specific subdomain (e.g. worker1.example.com) shall be configured to point at the new node public IP. Note this subdomain for entry as the node domain when requested upon execution of the script. You can use private IPs instead if so desired.
 * Additional configuration of your [firewalls](https://docs.docker.com/engine/swarm/swarm-tutorial/#open-protocols-and-ports-between-the-hosts) is required for swarm communication
@@ -66,16 +76,6 @@ docker swarm join --token KEY IP:2377
    * `+Label`
    * `Name` - <Node Name> e.g. worker1
    * `Value` - "True"
-
-## Extension:
-* Read the comments at the top of the stack you wish to deploy
-* Create a new stack
-   * `Portainer`
-   * `Stacks`
-   * `Add Stack`
-   * `Name` - e.g. client1-ignition
-   * `Web editor` - copy contents of stack.yml file
-   * `Environment variables` - as described by the stack comments
 
  ## To Do
  
