@@ -1,8 +1,7 @@
-  
-# 1
-## Set Stack Environment Variables ##
-  # DOMAIN=subdomain.example.domain
-  # NODE=manager, worker1, etc
+#    Stack Environment Variables
+#    
+#    - DOMAIN=subdomain.example.domain
+#    - NODE=manager, worker1, etc
 
 version: '3.3'
 
