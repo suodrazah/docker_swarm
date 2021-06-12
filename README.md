@@ -35,7 +35,7 @@ sudo groupadd docker && sudo usermod -aG docker $USER && newgrp docker
 curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.sh -o deploy.sh && sh deploy.sh
 ```
 
-## Extension (i.e. add self hosted software):
+## [Extension](https://github.com/suodrazah/docker_swarm/tree/main/stacks) (i.e. add self hosted software):
 * Read the comments at the top of the stack you wish to deploy
 * Create a new stack
    * `Portainer`
