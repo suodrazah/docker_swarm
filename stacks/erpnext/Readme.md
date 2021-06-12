@@ -1,4 +1,4 @@
-1. Create Portainer config "erp-mariadb"
+Create Portainer config "erp-mariadb"
 
 ```
 [mysqld]
@@ -10,7 +10,7 @@ collation-server = utf8mb4_unicode_ci
 default-character-set = utf8mb4
 ```
 
-2. Stack Environment Variables
+Stack Environment Variables
 
 - ERPNEXT_VERSION=v13.4.1
 - FRAPPE_VERSION=v13.4.1
