@@ -1,0 +1,44 @@
+  
+# 1
+## Set Stack Environment Variables ##
+  # DOMAIN=subdomain.example.domain
+  # NODE=worker1, etc
+
+version: '3.3'
+
+services:
+  unifi:
+    image:  linuxserver/unifi-controller
+    volumes:
+      - unifi-data:/config
+    networks:
+      - internal-network
+      - traefik-public
+    ports:
+      - 3478:3478/udp
+      - 8080:8080
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public
+        - traefik.constraint-label=traefik-public
+        - traefik.http.routers.unifi-http.rule=Host(`${DOMAIN?Variable not set}`)
+        - traefik.http.routers.unifi-http.entrypoints=http
+        - traefik.http.routers.unifi-http.middlewares=https-redirect
+        - traefik.http.routers.unifi-https.rule=Host(`${DOMAIN?Variable not set}`)
+        - traefik.http.routers.unifi-https.entrypoints=https
+        - traefik.http.routers.unifi-https.tls=true
+        - traefik.http.routers.unifi-https.tls.certresolver=le
+        - traefik.http.services.unifi.loadbalancer.server.port=8443
+        - traefik.http.services.unifi.loadbalancer.server.scheme=https
+
+networks:
+  internal-network:
+  traefik-public:
+    external: true
+
+volumes:
+  unifi-data:
