@@ -20,9 +20,10 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 * **Firewall configured to allow 80/tcp, 443/tcp, 22/tcp**
 * **Public, static IP**
 * **Domain pointing to servers public IP address**
-  * [Google Domains](https://domains.google.com/) _$18+/year_
-  * [No-IP](https://domains.google.com/) _free_
-    * Wildcards are not free so you will have to configure subdomains manually, e.g. traefik.example.ddns.net
+  * [Google Domains](https://domains.google.com/)
+    * $18+/year
+  * [No-IP](https://domains.google.com/)
+    * free <sub>Wildcards are not free so you will have to configure subdomains manually, e.g. traefik.example.ddns.net</sub>
 
 ## Notes:
 * **Designed to be executed on a fresh platform**
