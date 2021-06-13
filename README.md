@@ -11,7 +11,7 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 ```
 
 ## Prerequisites:
-* **_Tested on_ Debian 10 and Ubuntu Server 20.04 LTS, Local or VPS.**
+* **Fresh Debian 10 or Ubuntu Server 20.04 LTS**
   * [VPS at Linode](https://www.linode.com/products/shared/)
     * $5+/month
   * [VPS at OVH](https://ca.ovh.com/au/order/vps/)
@@ -26,11 +26,6 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
     * $18+/year
   * [No-IP](https://domains.google.com/)
     * free <sub>Wildcards are not free so you will have to configure subdomains manually, e.g. traefik.example.ddns.net</sub>
-
-## Notes:
-* **Designed to be executed on a fresh platform**
-* **All updates are handled**
-* **Wait a minute or so for Traefik to come up after the script finishes**
 
 ## Deployment:
 * **This will bring up Traefik and Portainer on a manager Docker Swarm node**
