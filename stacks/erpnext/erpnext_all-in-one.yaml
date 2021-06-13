@@ -18,8 +18,8 @@
 #    - `NODE` - manager, worker1, etc
 #    - `STACK` - name of this stack for traefik reference
 #    - `MARIADB_HOST` - mariadb, feel free to use external
-#    - `MYSQL_ROOT_PASSWORD` - somepassword or use a secret
-#    - `ADMIN_PASSWORD` - somepassword or use a secret
+#    - `MYSQL_ROOT_PASSWORD` - somepassword
+#    - `ADMIN_PASSWORD` - somepassword
 
 version: '3.3'
 
