@@ -32,19 +32,19 @@ services:
         constraints:
           - node.labels.${NODE?Variable not set} == true
       labels:
-        - traefik.enable=true
-        - traefik.docker.network=traefik-public
-        - traefik.constraint-label=traefik-public
-        - traefik.http.routers.${STACK?Variable not set}_ignition-http.rule=Host(`${DOMAIN?Variable not set}`)
-        - traefik.http.routers.${STACK?Variable not set}_ignition-http.entrypoints=http
-        - traefik.http.routers.${STACK?Variable not set}_ignition-http.middlewares=https-redirect
-        - traefik.http.routers.${STACK?Variable not set}_ignition-https.rule=Host(`${DOMAIN?Variable not set}`)
-        - traefik.http.routers.${STACK?Variable not set}_ignition-https.entrypoints=https
-        - traefik.http.routers.${STACK?Variable not set}_ignition-https.tls=true
-        - traefik.http.routers.${STACK?Variable not set}_ignition-https.tls.certresolver=le
-        - traefik.http.services.${STACK?Variable not set}_ignition.loadbalancer.server.port=8088
-        - traefik.http.middlewares.${STACK?Variable not set}_ignition-path.replacepathregex.regex=^/main/StatusPing$$"
-        - traefik.http.middlewares.${STACK?Variable not set}_ignition-path.replacepathregex.replacement=/StatusPing"
+        - "traefik.enable=true"
+        - "traefik.docker.network=traefik-public"
+        - "traefik.constraint-label=traefik-public"
+        - "traefik.http.routers.${STACK?Variable not set}_ignition-http.rule=Host(`${DOMAIN?Variable not set}`)"
+        - "traefik.http.routers.${STACK?Variable not set}_ignition-http.entrypoints=http"
+        - "traefik.http.routers.${STACK?Variable not set}_ignition-http.middlewares=https-redirect"
+        - "traefik.http.routers.${STACK?Variable not set}_ignition-https.rule=Host(`${DOMAIN?Variable not set}`)"
+        - "traefik.http.routers.${STACK?Variable not set}_ignition-https.entrypoints=https"
+        - "traefik.http.routers.${STACK?Variable not set}_ignition-https.tls=true"
+        - "traefik.http.routers.${STACK?Variable not set}_ignition-https.tls.certresolver=le"
+        - "traefik.http.services.${STACK?Variable not set}_ignition.loadbalancer.server.port=8088"
+        - "traefik.http.middlewares.${STACK?Variable not set}_ignition-path.replacepathregex.regex=^/main/StatusPing$$"
+        - "traefik.http.middlewares.${STACK?Variable not set}_ignition-path.replacepathregex.replacement=/StatusPing"
 
   db:
     image:  mariadb
