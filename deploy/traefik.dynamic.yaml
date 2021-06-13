@@ -17,16 +17,16 @@ tls:
 
       sniStrict: true
 
-http:
-  middlewares:
-    secHeaders:
-      headers:
-        browserXssFilter: true
-        contentTypeNosniff: true
-        sslRedirect: true
-        stsIncludeSubdomains: true
-        stsPreload: true
-        stsSeconds: 31536000
-        customFrameOptionsValue: "SAMEORIGIN"
-        Referrer-Policy: "strict-origin-when-cross-origin"
-        Permissions-Policy: "accelerometer=(); ambient-light-sensor=(); autoplay=(self); camera=(); encrypted-media=(); fullscreen=(self); geolocation=(*); gyroscope=(); magnetometer=(); microphone=(); midi=(); payment=(); picture-in-picture=(*); speaker=(); sync-xhr=(); usb=(); vr=()"
+#http:
+#  middlewares:
+#    secHeaders:
+#      headers:
+#        browserXssFilter: true
+#        contentTypeNosniff: true
+#        sslRedirect: true
+#        stsIncludeSubdomains: true
+#        stsPreload: true
+#        stsSeconds: 31536000
+#        customFrameOptionsValue: "SAMEORIGIN"
+#        Referrer-Policy: "strict-origin-when-cross-origin"
+#        Permissions-Policy: "accelerometer=(); ambient-light-sensor=(); autoplay=(self); camera=(); encrypted-media=(); fullscreen=(self); geolocation=(*); gyroscope=(); magnetometer=(); microphone=(); midi=(); payment=(); picture-in-picture=(*); speaker=(); sync-xhr=(); usb=(); vr=()"
