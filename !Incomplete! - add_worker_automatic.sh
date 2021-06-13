@@ -45,7 +45,7 @@ sshpass -f <(printf '%s\n' $WORKERPASSWORD) ssh $WORKERUSERNAME@$WORKERIP "sudo 
 #Join Swarm
 
 
-#Add label to this node so we can constrain traefik and portainer to it
+#Add label to this node so we can constrain traefik and portainer to it !!!Incomplete
 export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}')
 docker node update --label-add $WORKER=true $NODE_ID
 
