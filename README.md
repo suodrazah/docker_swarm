@@ -17,7 +17,7 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
   * [VPS at OVH](https://ca.ovh.com/au/order/vps/)
     * $5+/month
   * [VPS at AWS](https://ca.ovh.com/au/order/vps/)
-    * $0+/month
+    * $0+/month (free tier is slow, useful for light stacks only)
 * **SSH Access as sudo user (not root)**
 * **Firewall configured to allow 80/tcp, 443/tcp, 22/tcp**
 * **Public, static IP**
