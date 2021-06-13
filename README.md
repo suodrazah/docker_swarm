@@ -2,6 +2,7 @@
 ### <p align="center">A deployment method and collection of basic docker swarm stacks.</p>
 
 ## tl;dr
+* **Fresh Ubuntu 20.04 LTS Server + 80 and 443 forwarded + DNS configured**
 ```
 sudo groupadd docker && sudo usermod -aG docker $USER && newgrp docker
 ```
