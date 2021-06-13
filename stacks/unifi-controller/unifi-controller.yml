@@ -22,18 +22,18 @@ services:
         constraints:
         - node.labels.$NODE == true
       labels:
-        - traefik.enable=true
-        - traefik.docker.network=traefik-public
-        - traefik.constraint-label=traefik-public
-        - traefik.http.routers.${STACK?Variable not set}_unifi-http.rule=Host(`${DOMAIN?Variable not set}`)
-        - traefik.http.routers.${STACK?Variable not set}_unifi-http.entrypoints=http
-        - traefik.http.routers.${STACK?Variable not set}_unifi-http.middlewares=https-redirect
-        - traefik.http.routers.${STACK?Variable not set}_unifi-https.rule=Host(`${DOMAIN?Variable not set}`)
-        - traefik.http.routers.${STACK?Variable not set}_unifi-https.entrypoints=https
-        - traefik.http.routers.${STACK?Variable not set}_unifi-https.tls=true
-        - traefik.http.routers.${STACK?Variable not set}_unifi-https.tls.certresolver=le
-        - traefik.http.services.${STACK?Variable not set}_unifi.loadbalancer.server.port=8443
-        - traefik.http.services.${STACK?Variable not set}_unifi.loadbalancer.server.scheme=https
+        - "traefik.enable=true"
+        - "traefik.docker.network=traefik-public"
+        - "traefik.constraint-label=traefik-public"
+        - "traefik.http.routers.${STACK?Variable not set}_unifi-http.rule=Host(`${DOMAIN?Variable not set}`)"
+        - "traefik.http.routers.${STACK?Variable not set}_unifi-http.entrypoints=http"
+        - "traefik.http.routers.${STACK?Variable not set}_unifi-http.middlewares=https-redirect"
+        - "traefik.http.routers.${STACK?Variable not set}_unifi-https.rule=Host(`${DOMAIN?Variable not set}`)"
+        - "traefik.http.routers.${STACK?Variable not set}_unifi-https.entrypoints=https"
+        - "traefik.http.routers.${STACK?Variable not set}_unifi-https.tls=true"
+        - "traefik.http.routers.${STACK?Variable not set}_unifi-https.tls.certresolver=le"
+        - "traefik.http.services.${STACK?Variable not set}_unifi.loadbalancer.server.port=8443"
+        - "traefik.http.services.${STACK?Variable not set}_unifi.loadbalancer.server.scheme=https"
 
 networks:
   internal-network:
