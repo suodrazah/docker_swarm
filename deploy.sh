@@ -117,7 +117,7 @@ export USER=$USER
 export DOMAIN=$DOMAIN
 export HASHED_TFPASSWORD=$HASHED_TFPASSWORD
 export EMAIL=$EMAIL
-export USERNAME=$USERNAME
+export USER=$USER
 docker stack deploy -c traefik.yml manager_traefik
 docker stack deploy -c portainer.yml manager_portainer
 docker swarm update --task-history-limit=4
