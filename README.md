@@ -51,11 +51,7 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 * Specific subdomain (e.g. worker1.example.com) shall be configured to point at the new node public IP. Note this subdomain for entry as the node domain when requested upon execution of the script. You can use private IPs instead if so desired.
 * Additional configuration of your [firewalls](https://docs.docker.com/engine/swarm/swarm-tutorial/#open-protocols-and-ports-between-the-hosts) is required for swarm communication
 
-* To add a manager node run this on an existing manager node and copy the output:
-```
-docker swarm join-token manager
-```
-* To add a worker node run this on a manager node and copy the output:
+* To add a worker node run this on an existing manager node and copy the output:
 ```
 docker swarm join-token worker
 ```
