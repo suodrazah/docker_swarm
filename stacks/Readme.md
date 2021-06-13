@@ -11,3 +11,6 @@
    * `Name` - e.g. client1-ignition
    * `Web editor` - copy contents of stack.yml file
    * `Environment variables` - as described by the stack Readme.md
+
+## Notes
+* Rather than using plain text passwords, you can create and manage [Docker secrets](https://docs.docker.com/engine/swarm/secrets/) via portainer.
