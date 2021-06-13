@@ -11,8 +11,8 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 ```
 
 ## Prerequisites:
-* **_Tested on_ Debian 10, Local or VPS.**
-  * [VPS at Linode (recommended)](https://www.linode.com/products/shared/)
+* **_Tested on_ Debian 10 and Ubuntu Server 20.04 LTS, Local or VPS.**
+  * [VPS at Linode](https://www.linode.com/products/shared/)
     * $5+/month
   * [VPS at OVH](https://ca.ovh.com/au/order/vps/)
     * $5+/month
@@ -22,6 +22,7 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 * **Domain pointing to servers public IP address**
   * [Google Domains](https://domains.google.com/) _$18+/year_
   * [No-IP](https://domains.google.com/) _free_
+    * Wildcards are not free so you will have to configure subdomains manually, e.g. traefik.example.ddns.net
 
 ## Notes:
 * **Designed to be executed on a fresh platform**
