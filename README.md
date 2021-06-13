@@ -42,7 +42,7 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
    * `Portainer`
    * `Stacks`
    * `Add Stack`
-   * `Name` - e.g. client1-ignition
+   * `Name` - e.g. site1-ignition
    * `Web editor` - copy contents of stack.yml file
    * `Environment variables` - as described by the stack Readme.md
 
