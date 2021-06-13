@@ -117,7 +117,6 @@ export USER=$USER
 export DOMAIN=$DOMAIN
 export HASHED_TFPASSWORD=$HASHED_TFPASSWORD
 export EMAIL=$EMAIL
-export USER=$USER
 export USERNAME=$USERNAME
 docker stack deploy -c traefik.yml manager_traefik
 docker stack deploy -c portainer.yml manager_portainer
