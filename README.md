@@ -2,7 +2,7 @@
 ### <p align="center">A deployment method and collection of basic docker swarm stacks.</p>
 
 ## tl;dr
-* **Fresh Ubuntu 20.04 LTS Server + 80 and 443 forwarded + DNS configured**
+* **Fresh Debian 10 Server + 80 and 443 forwarded + DNS configured**
 ```
 sudo groupadd docker && sudo usermod -aG docker $USER && newgrp docker
 ```
@@ -11,7 +11,7 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 ```
 
 ## Prerequisites:
-* **_Tested on_ Debian 10 (recommended) and Ubuntu Server 20.04 LTS, Local or VPS (recommended).**
+* **_Tested on_ Debian 10, Local or VPS.**
   * [VPS at Linode (recommended)](https://www.linode.com/products/shared/)
     * $5+/month
   * [VPS at OVH](https://ca.ovh.com/au/order/vps/)
