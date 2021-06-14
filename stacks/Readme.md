@@ -14,3 +14,5 @@
 
 ## Notes
 * Rather than using plain text passwords, you can create and manage [Docker secrets](https://docs.docker.com/engine/swarm/secrets/) via portainer.
+
+![alt text](https://raw.githubusercontent.com/suodrazah/docker_swarm/main/_images/deploy_stack.png)
