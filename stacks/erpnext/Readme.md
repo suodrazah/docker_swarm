@@ -10,6 +10,8 @@ collation-server = utf8mb4_unicode_ci
 default-character-set = utf8mb4
 ```
 
+![alt text](https://raw.githubusercontent.com/suodrazah/docker_swarm/main/_images/deploy_config.png)
+
 Stack Environment Variables
 
 - `ERPNEXT_VERSION` - v13.4.1
