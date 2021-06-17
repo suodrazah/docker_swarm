@@ -14,8 +14,8 @@ default-character-set = utf8mb4
 
 Stack Environment Variables
 
-- `ERPNEXT_VERSION` - v13.4.1
-- `FRAPPE_VERSION` - v13.4.1
+- `ERPNEXT_VERSION` - v13.5.0
+- `FRAPPE_VERSION` - v13.5.0
 - `DOMAIN` - subdomain.example.domain
 - `NODE` - manager, worker1, etc
 - `STACK` - name of this stack for traefik reference
