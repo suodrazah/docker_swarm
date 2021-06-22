@@ -12,6 +12,7 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 
 ## Prerequisites:
 * **Fresh Debian 10 or Ubuntu Server 20.04 LTS**
+  * Local
   * [VPS at Linode](https://www.linode.com/products/shared/)
     * $5+/month
   * [VPS at OVH](https://ca.ovh.com/au/order/vps/)
