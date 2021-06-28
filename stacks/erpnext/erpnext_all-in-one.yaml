@@ -237,7 +237,7 @@ services:
         - node.labels.$NODE == true
 
   mariadb:
-    image: mariadb:10.3
+    image: mariadb:10.5
     restart: on-failure
     networks:
       - internal-network
