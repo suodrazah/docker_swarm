@@ -88,8 +88,9 @@ sudo timedatectl set-timezone $TIMEZONE
 curl -fsSL get.docker.com -o get-docker.sh && sh get-docker.sh
 rm get-docker.sh
 
-#Initiate Docker Swarm
-docker swarm init
+#Initiate Docker Swarm default on first IP
+WANIP=$(curl https://ipecho.net/plain)
+docker swarm init --advertise-addr $WANIP:80
 
 
 #Create traefik overlay networks
