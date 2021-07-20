@@ -17,8 +17,6 @@
 #This script is a work in development, I mean...look at it, if it was a beloved family pet I'd put it down.
 #Good luck
 
-sudo groupadd docker && sudo usermod -aG docker $USER
-
 export BRANCH=main
 
 read -p "Does this server have a domain that points at it, and ports 80 and 443 exposed? (Y/n): " PROCEED
@@ -91,22 +89,22 @@ curl -fsSL get.docker.com -o get-docker.sh && sh get-docker.sh
 rm get-docker.sh
 
 #Initiate Docker Swarm
-sudo docker swarm init
+docker swarm init
 
 
 #Create traefik overlay networks
 ENCRYPT=${ENCRYPT:-N}
 if [ $ENCRYPT = "y" ]; then
-    sudo docker network create --driver=overlay --opt encrypted traefik-public
+    docker network create --driver=overlay --opt encrypted traefik-public
 fi
 
 if [ $ENCRYPT = "N" ]; then
-    sudo docker network create --driver=overlay traefik-public
+    docker network create --driver=overlay traefik-public
 fi
 
 #Add label to this node so we can constrain traefik and portainer to it
 export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}')
-sudo docker node update --label-add manager=true $NODE_ID
+docker node update --label-add manager=true $NODE_ID
 
 #Get traefik ready
 curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/$BRANCH/deploy/traefik.dynamic.yaml -o /home/${USER?Variable not set}/traefik.dynamic.yaml
@@ -119,9 +117,9 @@ export DOMAIN=$DOMAIN
 export HASHED_TFPASSWORD=$HASHED_TFPASSWORD
 export EMAIL=$EMAIL
 export USERNAME=$USERNAME
-sudo docker stack deploy -c traefik.yml manager_traefik
-sudo docker stack deploy -c portainer.yml manager_portainer
-sudo docker swarm update --task-history-limit=4
+docker stack deploy -c traefik.yml manager_traefik
+docker stack deploy -c portainer.yml manager_portainer
+docker swarm update --task-history-limit=4
 clear
 echo "Deployment (probably) complete... please visit https://traefik."$DOMAIN" and https://portainer."$DOMAIN
 echo "Exiting in a few seconds"
