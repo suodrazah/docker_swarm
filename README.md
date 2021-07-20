@@ -4,9 +4,6 @@
 ## tl;dr
 * **Fresh Debian 10 Server + 80 and 443 forwarded + DNS configured**
 ```
-sudo groupadd docker && sudo usermod -aG docker $USER && newgrp docker
-```
-```
 curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.sh -o deploy.sh && sh deploy.sh
 ```
 
@@ -31,9 +28,6 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 ## Deployment:
 * **This will bring up Traefik and Portainer on a manager Docker Swarm node**
 ```
-sudo groupadd docker && sudo usermod -aG docker $USER && newgrp docker
-```
-```
 curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.sh -o deploy.sh && sh deploy.sh
 ```
 
@@ -56,15 +50,13 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 docker swarm join-token worker
 ```
 * On the node to be added (not as root):
-```
-sudo groupadd docker && sudo usermod -aG docker $USER && newgrp docker
-```
+
 ```
 curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/add_worker.sh -o add_worker.sh && sh add_worker.sh
 ```
 * Output you copied earlier from join-token command above
 ```
-docker swarm join --token KEY IP:2377
+sudo docker swarm join --token KEY IP:2377
 ```
 
 * Add a label to the new node
