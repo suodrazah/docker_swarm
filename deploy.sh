@@ -17,6 +17,8 @@
 #This script is a work in development, I mean...look at it, if it was a beloved family pet I'd put it down.
 #Good luck
 
+sudo groupadd docker && sudo usermod -aG docker $USER
+
 export BRANCH=main
 
 read -p "Does this server have a domain that points at it, and ports 80 and 443 exposed? (Y/n): " PROCEED
@@ -90,22 +92,22 @@ rm get-docker.sh
 
 #Initiate Docker Swarm default on first IP
 WANIP=$(curl https://ipecho.net/plain)
-docker swarm init --advertise-addr $WANIP:80
+sudo docker swarm init --advertise-addr $WANIP
 
 
 #Create traefik overlay networks
 ENCRYPT=${ENCRYPT:-N}
 if [ $ENCRYPT = "y" ]; then
-    docker network create --driver=overlay --opt encrypted traefik-public
+    sudo docker network create --driver=overlay --opt encrypted traefik-public
 fi
 
 if [ $ENCRYPT = "N" ]; then
-    docker network create --driver=overlay traefik-public
+    sudo docker network create --driver=overlay traefik-public
 fi
 
 #Add label to this node so we can constrain traefik and portainer to it
-export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}')
-docker node update --label-add manager=true $NODE_ID
+export NODE_ID=$(sudo docker info -f '{{.Swarm.NodeID}}')
+sudo docker node update --label-add manager=true $NODE_ID
 
 #Get traefik ready
 curl -L https://raw.githubusercontent.com/suodrazah/docker_swarm/$BRANCH/deploy/traefik.dynamic.yaml -o /home/${USER?Variable not set}/traefik.dynamic.yaml
@@ -118,12 +120,12 @@ export DOMAIN=$DOMAIN
 export HASHED_TFPASSWORD=$HASHED_TFPASSWORD
 export EMAIL=$EMAIL
 export USERNAME=$USERNAME
-docker stack deploy -c traefik.yml manager_traefik
-docker stack deploy -c portainer.yml manager_portainer
-docker swarm update --task-history-limit=4
+sudo docker stack deploy -c traefik.yml manager_traefik
+sudo docker stack deploy -c portainer.yml manager_portainer
+sudo docker swarm update --task-history-limit=4
 clear
 echo "Deployment (probably) complete... please visit https://traefik."$DOMAIN" and https://portainer."$DOMAIN
-echo "Exiting in a few seconds"
+echo "Exiting in a few seconds - probably a good id ea to reboot sometime"
 sleep 10
 
 #Clean up
