@@ -71,7 +71,6 @@ fi
 if [ $ZEROTIER != "X" ]; then
     #Join zerotier network
     curl -s https://install.zerotier.com | sudo bash
-    clear
     sudo zerotier-cli join $ZEROTIER
     sleep 5
  fi
