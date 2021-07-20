@@ -124,7 +124,7 @@ sudo --preserve-env bash -c 'docker stack deploy -c portainer.yml manager_portai
 sudo docker swarm update --task-history-limit=4
 
 echo "Deployment (probably) complete... please visit https://traefik."$DOMAIN" and https://portainer."$DOMAIN
-echo "Exiting in a few seconds - probably a good id ea to reboot sometime"
+echo "Exiting in a few seconds - probably a good idea to reboot sometime"
 sleep 10
 
 #Clean up
