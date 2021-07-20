@@ -26,7 +26,7 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
   * [Google Domains](https://domains.google.com/)
     * $18+/year
   * [No-IP](https://domains.google.com/)
-    * free <sub>Wildcards are not free so you will have to configure subdomains manually, e.g. traefik.example.ddns.net</sub>
+    * free <sub>Wildcards are not free so you will have to configure subdomains manually, e.g. traefik.example.ddns.net, portainer.example.ddns.net, etc</sub>
 
 ## Deployment:
 * **This will bring up Traefik and Portainer on a manager Docker Swarm node**
