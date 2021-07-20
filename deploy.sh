@@ -44,16 +44,16 @@ echo "Traefik dashboard password?"
 #Prepare traefik password
 export "HASHED_TFPASSWORD=$(openssl passwd -apr1 $TFPASSWORD)"
 
-clear
+
 
 read -p "Do you want to encrypt communication between containers in the swarm? If you don't know what you are doing, select No (y/N): " ENCRYPT
 
-clear
+
 #Get ZeroTier config ready
 read -p "Zerotier Network ID? (Press enter to ignore): " ZEROTIER
 ZEROTIER=${ZEROTIER:-X}
 
-clear
+
 #Get authority
 echo "Configuring manager."DOMAIN" node"
 echo "Admin Email - "$EMAIL
@@ -120,10 +120,10 @@ export DOMAIN=$DOMAIN
 export HASHED_TFPASSWORD=$HASHED_TFPASSWORD
 export EMAIL=$EMAIL
 export USERNAME=$USERNAME
-sudo docker stack deploy -c traefik.yml manager_traefik
-sudo docker stack deploy -c portainer.yml manager_portainer
+sudo --preserve-env bash -c 'docker stack deploy -c traefik.yml manager_traefik'
+sudo --preserve-env bash -c 'docker stack deploy -c portainer.yml manager_portainer'
 sudo docker swarm update --task-history-limit=4
-clear
+
 echo "Deployment (probably) complete... please visit https://traefik."$DOMAIN" and https://portainer."$DOMAIN
 echo "Exiting in a few seconds - probably a good id ea to reboot sometime"
 sleep 10
@@ -132,7 +132,6 @@ sleep 10
 rm /home/$USER/deploy.sh
 rm /home/$USER/traefik.yml
 rm /home/$USER/portainer.yml
-clear
 
 #Done
 sleep 1
