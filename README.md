@@ -55,7 +55,7 @@ curl -fsSL https://raw.githubusercontent.com/suodrazah/docker_swarm/main/deploy.
 ```
 docker swarm join-token worker
 ```
-* On the node to be added (not as root):
+* On the node to be added (again, as a sudo user and not root):
 ```
 sudo groupadd docker && sudo usermod -aG docker $USER && newgrp docker
 ```
