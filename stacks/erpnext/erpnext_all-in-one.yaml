@@ -5,6 +5,10 @@
 #    character-set-client-handshake = FALSE
 #    character-set-server = utf8mb4
 #    collation-server = utf8mb4_unicode_ci
+#    server-id        = 1
+#    expire_logs_days = 10
+#    binlog_format    = row
+#    log_bin          = /var/log/mysql/mysql-bin
 #     
 #    [mysql]
 #    default-character-set = utf8mb4
@@ -20,35 +24,12 @@
 #    - `MARIADB_HOST` - mariadb, feel free to use external
 #    - `MYSQL_ROOT_PASSWORD` - somepassword
 #    - `ADMIN_PASSWORD` - somepassword
+#    - `SQLBAK_KEY` - Key for connection to sqlbak
 
-version: '3.3'
+version: '3.8'
 
 services:
 
-## Adminer, Optional ##
-#  adminer:
-#    image: adminer
-#    networks:
-#      - internal-network
-#      - traefik-public
-#    restart: always
-#    deploy:
-#      placement:
-#        constraints:
-#        - node.labels.$NODE == true
-#      labels:
-#        - "traefik.enable=true"
-#        - "traefik.docker.network=traefik-public"
-#        - "traefik.constraint-label=traefik-public"
-#        - "traefik.http.routers.${STACK?Variable not set}-adminer-http.rule=Host(`adminer.${DOMAIN?Variable not set}`)"
-#        - "traefik.http.routers.${STACK?Variable not set}-adminer-http.entrypoints=http"
-#        - "traefik.http.routers.${STACK?Variable not set}-adminer-http.middlewares=https-redirect"
-#        - "traefik.http.routers.${STACK?Variable not set}-adminer-https.rule=Host(`adminer.${DOMAIN?Variable not set}`)"
-#        - "traefik.http.routers.${STACK?Variable not set}-adminer-https.entrypoints=https"
-#        - "traefik.http.routers.${STACK?Variable not set}-adminer-https.tls=true"
-#        - "traefik.http.routers.${STACK?Variable not set}-adminer-https.tls.certresolver=le"
-#        - "traefik.http.services.${STACK?Variable not set}-adminer.loadbalancer.server.port=8080"
- 
   erpnext-worker:
     image: frappe/erpnext-worker:${ERPNEXT_VERSION}
     networks:
@@ -244,25 +225,50 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     configs:
-      - source: erp-mariadb
+      - source: suo-cloud-erp-mariadb
         target: /etc/mysql/conf.d/frappe.cnf
     volumes:
       - mariadb-vol:/var/lib/mysql
+      - mariadb-logs:/var/log/mysql
     deploy:
       placement:
         constraints:
         - node.labels.$NODE == true
 
+#sqlbak is optional, easiest way to take and restore backups
+#  sqlbak:
+#    image: pranasnet/sqlbak
+#    volumes:
+#      - sqlbak-data:/var/lib/mysql
+#      - sqlbak-temp:/tmp/sqlbak
+#      - sites-vol:/sites:ro
+#    networks:
+#      - internal-network
+#    environment:
+#      - sqlbak_key=${SQLBAK_KEY}
+#      - sqlbak_name=${STACK}
+#      - db_type=MYSQL
+#      - user=root
+#      - password=${MYSQL_ROOT_PASSWORD}
+#      - host=${MARIADB_HOST}
+#      - port=3306
+#    deploy:
+#      placement:
+#        constraints:
+#        - node.labels.$NODE == true
 
 volumes:
   redis-vol:
   mariadb-vol:
+  mariadb-logs:
   assets-vol:
   sites-vol:
   logs-vol:
+#  sqlbak-data:
+#  sqlbak-temp:
 
 configs:
-  erp-mariadb:
+  suo-cloud-erp-mariadb:
     external: true
 
 networks:
