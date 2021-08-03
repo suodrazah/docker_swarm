@@ -241,6 +241,7 @@ services:
 #    volumes:
 #      - sqlbak-data:/var/lib/mysql
 #      - sqlbak-temp:/tmp/sqlbak
+#      - mariadb-logs:/var/log/mysql
 #      - sites-vol:/sites
 #    networks:
 #      - internal-network
