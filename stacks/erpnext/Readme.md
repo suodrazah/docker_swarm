@@ -5,6 +5,10 @@ Create Portainer config "erp-mariadb"
 character-set-client-handshake = FALSE
 character-set-server = utf8mb4
 collation-server = utf8mb4_unicode_ci
+server-id        = 1
+expire_logs_days = 10
+binlog_format    = row
+log_bin          = /var/log/mysql/mysql-bin
  
 [mysql]
 default-character-set = utf8mb4
