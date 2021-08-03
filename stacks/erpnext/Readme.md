@@ -14,7 +14,7 @@ log_bin          = /var/log/mysql/mysql-bin
 default-character-set = utf8mb4
 ```
 
-![alt text](https://raw.githubusercontent.com/suodrazah/docker_swarm/main/_images/deploy_config.png)
+![alt text](https://raw.githubusercontent.com/suodrazah/docker_swarm/main/_images/deploy_conf.png)
 
 Stack Environment Variables
 
