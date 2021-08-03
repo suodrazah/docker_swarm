@@ -241,7 +241,7 @@ services:
 #    volumes:
 #      - sqlbak-data:/var/lib/mysql
 #      - sqlbak-temp:/tmp/sqlbak
-#      - sites-vol:/sites:ro
+#      - sites-vol:/sites
 #    networks:
 #      - internal-network
 #    environment:
