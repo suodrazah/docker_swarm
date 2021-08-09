@@ -239,7 +239,7 @@ services:
 #  sqlbak:
 #    image: pranasnet/sqlbak
 #    volumes:
-#      - sqlbak-data:/var/lib/mysql
+#      - sqlbak-data:/opt/sqlbak
 #      - sqlbak-temp:/tmp/sqlbak
 #      - mariadb-logs:/var/log/mysql
 #      - sites-vol:/sites
