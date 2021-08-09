@@ -24,7 +24,7 @@
 #    - `MARIADB_HOST` - mariadb, feel free to use external
 #    - `MYSQL_ROOT_PASSWORD` - somepassword
 #    - `ADMIN_PASSWORD` - somepassword
-#    - `SQLBAK_KEY` - Key for connection to sqlbak
+#    - `SQLBAK_KEY` - Key for connection to sqlbak, uncomment if you want to use this service
 
 version: '3.8'
 
@@ -242,31 +242,30 @@ services:
         constraints:
         - node.labels.$NODE == true
 
-
-  sqlbak:
-    image: pranasnet/sqlbak
-    restart: on-failure
-    volumes:
-      - sqlbak-data:/opt/sqlbak
-      - sqlbak-temp:/tmp/sqlbak
-      - mariadb-logs:/var/log/mysql
-      - sites-vol:/sites
-    networks:
-      - internal-network
-    environment:
-      - sqlbak_key=${SQLBAK_KEY}
-      - sqlbak_name=${STACK}
-      - db_type=MYSQL
-      - user=root
-      - password=${MYSQL_ROOT_PASSWORD}
-      - host=${MARIADB_HOST}
-      - port=3306
-    depends_on:
-      - mariadb
-    deploy:
-      placement:
-        constraints:
-        - node.labels.$NODE == true
+#  sqlbak:
+#    image: pranasnet/sqlbak
+#    restart: on-failure
+#    volumes:
+#      - sqlbak-data:/opt/sqlbak
+#      - sqlbak-temp:/tmp/sqlbak
+#      - mariadb-logs:/var/log/mysql
+#      - sites-vol:/sites
+#    networks:
+#      - internal-network
+#    environment:
+#      - sqlbak_key=${SQLBAK_KEY}
+#      - sqlbak_name=${STACK}
+#      - db_type=MYSQL
+#      - user=root
+#      - password=${MYSQL_ROOT_PASSWORD}
+#      - host=${MARIADB_HOST}
+#      - port=3306
+#    depends_on:
+#      - mariadb
+#    deploy:
+#      placement:
+#        constraints:
+#        - node.labels.$NODE == true
 
 volumes:
   redis-vol:
@@ -276,8 +275,8 @@ volumes:
   sites-vol:
   logs-vol:
   backups-vol:
-  sqlbak-data:
-  sqlbak-temp:
+#  sqlbak-data:
+#  sqlbak-temp:
 
 configs:
   suo-cloud-erp-mariadb:
