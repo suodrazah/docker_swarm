@@ -243,6 +243,7 @@ services:
 #sqlbak is optional, easiest way to take and restore backups
 #  sqlbak:
 #    image: pranasnet/sqlbak
+#    restart: on-failure
 #    volumes:
 #      - sqlbak-data:/opt/sqlbak
 #      - sqlbak-temp:/tmp/sqlbak
