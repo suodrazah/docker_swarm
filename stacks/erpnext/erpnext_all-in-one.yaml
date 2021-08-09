@@ -16,8 +16,8 @@
 #    
 #    Stack Environment Variables
 #    
-#    - `ERPNEXT_VERSION` - v13.5.0
-#    - `FRAPPE_VERSION` - v13.5.0
+#    - `ERPNEXT_VERSION` - v13.8.0
+#    - `FRAPPE_VERSION` - v13.8.0
 #    - `DOMAIN` - subdomain.example.domain
 #    - `NODE` - manager, worker1, etc
 #    - `STACK` - name of this stack for traefik reference
@@ -53,6 +53,8 @@ services:
       - mariadb
     volumes:
       - sites-vol:/home/frappe/frappe-bench/sites:rw
+      - logs-vol:/home/frappe/frappe-bench/logs:rw
+      - backups-vol:/home/frappe/backups:rw
     deploy:
       restart_policy:
         condition: on-failure
@@ -240,29 +242,29 @@ services:
         constraints:
         - node.labels.$NODE == true
 
-#sqlbak is optional, easiest way to take and restore backups
-#  sqlbak:
-#    image: pranasnet/sqlbak
-#    restart: on-failure
-#    volumes:
-#      - sqlbak-data:/opt/sqlbak
-#      - sqlbak-temp:/tmp/sqlbak
-#      - mariadb-logs:/var/log/mysql
-#      - sites-vol:/sites
-#    networks:
-#      - internal-network
-#    environment:
-#      - sqlbak_key=${SQLBAK_KEY}
-#      - sqlbak_name=${STACK}
-#      - db_type=MYSQL
-#      - user=root
-#      - password=${MYSQL_ROOT_PASSWORD}
-#      - host=${MARIADB_HOST}
-#      - port=3306
-#    deploy:
-#      placement:
-#        constraints:
-#        - node.labels.$NODE == true
+
+  sqlbak:
+    image: pranasnet/sqlbak
+    restart: on-failure
+    volumes:
+      - sqlbak-data:/opt/sqlbak
+      - sqlbak-temp:/tmp/sqlbak
+      - mariadb-logs:/var/log/mysql
+      - sites-vol:/sites
+    networks:
+      - internal-network
+    environment:
+      - sqlbak_key=${SQLBAK_KEY}
+      - sqlbak_name=${STACK}
+      - db_type=MYSQL
+      - user=root
+      - password=${MYSQL_ROOT_PASSWORD}
+      - host=${MARIADB_HOST}
+      - port=3306
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
 
 volumes:
   redis-vol:
@@ -272,8 +274,8 @@ volumes:
   sites-vol:
   logs-vol:
   backups-vol:
-#  sqlbak-data:
-#  sqlbak-temp:
+  sqlbak-data:
+  sqlbak-temp:
 
 configs:
   suo-cloud-erp-mariadb:
