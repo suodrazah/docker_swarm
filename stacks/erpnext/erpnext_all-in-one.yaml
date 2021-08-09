@@ -56,7 +56,7 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
-        delay: 5s
+        delay: 60s
         max_attempts: 10
         window: 120s
       placement:
