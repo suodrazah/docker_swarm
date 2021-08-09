@@ -261,6 +261,8 @@ services:
       - password=${MYSQL_ROOT_PASSWORD}
       - host=${MARIADB_HOST}
       - port=3306
+    depends_on:
+      - mariadb
     deploy:
       placement:
         constraints:
