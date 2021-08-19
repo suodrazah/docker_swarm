@@ -13,4 +13,4 @@ Ignition Gateway Database Connection Setup
 
 - `JDBC Driver` - MariaDB
 - `user` - db
-- `URL` jdbc:db://mariadb:3306/db
+- `URL` - jdbc:db://db:3306/db
