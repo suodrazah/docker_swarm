@@ -1,1 +1,120 @@
+#Create Portainer config "kanboard-mariadb"
+#    
+#    ```
+#    [mysqld]
+#    character-set-client-handshake = FALSE
+#    character-set-server = utf8mb4
+#    collation-server = utf8mb4_unicode_ci
+#    server-id        = 1
+#    expire_logs_days = 10
+#    binlog_format    = row
+#    log_bin          = /var/log/mysql/mysql-bin
+#     
+#    [mysql]
+#    default-character-set = utf8mb4
+#    ```
+#    
+#Stack Environment Variables
+#    
+#MYSQL_PASSWORD=Kanboard Database Password
+#MYSQL_ROOT_PASSWORD=Mariadb root password
+#SQLBAK_KEY=sqlbak key
+#STACK=Stack name
+#NODE=NodeID
 
+version: '3.8'
+
+services:
+
+  kanboard:
+    image: kanboard/kanboard:latest
+    volumes:
+      - kanboard_data:/var/www/app/data
+      - kanboard_plugins:/var/www/app/plugins
+      - kanboard_ssl:/etc/nginx/ssl
+    networks:
+      - internal-network
+      - traefik-public
+    environment:
+      DATABASE_URL: mysql://kanboard:${MYSQL_PASSWORD}@mariadb/kanboard
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=traefik-public"
+        - "traefik.constraint-label=traefik-public"
+        - "traefik.http.routers.${STACK}_kanboard-http.rule=Host(`${DOMAIN}`)"
+        - "traefik.http.routers.${STACK}_kanboard-http.entrypoints=http"
+        - "traefik.http.routers.${STACK}_kanboard-http.middlewares=https-redirect"
+        - "traefik.http.routers.${STACK}_kanboard-https.rule=Host(`${DOMAIN}`)"
+        - "traefik.http.routers.${STACK}_kanboard-https.entrypoints=https"
+        - "traefik.http.routers.${STACK}_kanboard-https.tls=true"
+        - "traefik.http.routers.${STACK}_kanboard-https.tls.certresolver=le"
+        - "traefik.http.services.${STACK}_kanboard.loadbalancer.server.port=80"
+
+
+  mariadb:
+    image: mariadb:10.5
+    networks:
+      - internal-network
+    environment:
+      - MYSQL_DATABASE=kanboard
+      - MYSQL_USER=kanboard
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    configs:
+      - source: kanboard-mariadb
+        target: /etc/mysql/conf.d/kanboard.cnf
+    volumes:
+      - mariadb-vol:/var/lib/mysql
+      - mariadb-logs:/var/log/mysql
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+
+  sqlbak:
+    image: pranasnet/sqlbak
+    volumes:
+      - sqlbak-data:/opt/sqlbak
+      - sqlbak-temp:/tmp/sqlbak
+      - mariadb-logs:/var/log/mysql
+      - kanboard_data:/kanboard/data
+      - kanboard_plugins:/kanboard/plugins
+      - kanboard_ssl:/kanboard/ssl
+    networks:
+      - internal-network
+    environment:
+      - sqlbak_key=${SQLBAK_KEY}
+      - sqlbak_name=${STACK}
+      - db_type=MYSQL
+      - user=root
+      - password=${MYSQL_ROOT_PASSWORD}
+      - host=mariadb
+      - port=3306
+    depends_on:
+      - mariadb
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+
+volumes:
+  kanboard_data:
+  kanboard_plugins:
+  kanboard_ssl:
+  mariadb-vol:
+  mariadb-logs:
+  sqlbak-data:
+  sqlbak-temp:
+
+configs:
+  kanboard-mariadb:
+    external: true
+
+networks:
+  internal-network:
+  traefik-public:
+    external: true
