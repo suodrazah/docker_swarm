@@ -31,7 +31,7 @@ services:
     deploy:
       placement:
         constraints:
-          - node.labels.${NODE?Variable not set} == true
+          - node.labels.${NODE} == true
       labels:
         - "traefik.enable=true"
         - "traefik.docker.network=traefik-public"
@@ -62,7 +62,7 @@ services:
     deploy:
       placement:
         constraints:
-          - node.labels.${NODE?Variable not set} == true
+          - node.labels.${NODE} == true
 
 networks:
   internal-network:
