@@ -1,9 +1,10 @@
-#    Stack Environment Variables
+#Stack Environment Variables
 #    
-#    - `DOMAIN` - subdomain.example.domain
-#    - `NODE` - manager, worker1, etc
-#    - `STACK` - name of this stack for traefik reference
-#    - `DBPASSWORD` - Wordpress database password
+#DOMAIN=subdomain.example.domain
+#NODE=manager, worker1, etc
+#STACK=name of this stack for traefik reference
+#MYSQL_ROOT_PASSWORD=somepassword
+#MYSQL_PASSWORD=somepassword
 
 version: '3.3'
 
@@ -18,7 +19,7 @@ services:
     environment:
       - WORDPRESS_DB_HOST=db
       - WORDPRESS_DB_USER=db
-      - WORDPRESS_DB_PASSWORD=${DBPASSWORD?Variable not set}
+      - WORDPRESS_DB_PASSWORD=${MYSQL_PASSWORD}
       - WORDPRESS_DB_NAME=db
     deploy:
       placement:
@@ -28,14 +29,14 @@ services:
         - "traefik.enable=true"
         - "traefik.docker.network=traefik-public"
         - "traefik.constraint-label=traefik-public"
-        - "traefik.http.routers.${STACK?Variable not set}_wp-http.rule=Host(`${DOMAIN?Variable not set}`)"
-        - "traefik.http.routers.${STACK?Variable not set}_wp-http.entrypoints=http"
-        - "traefik.http.routers.${STACK?Variable not set}_wp-http.middlewares=https-redirect"
-        - "traefik.http.routers.${STACK?Variable not set}_wp-https.rule=Host(`${DOMAIN?Variable not set}`)"
-        - "traefik.http.routers.${STACK?Variable not set}_wp-https.entrypoints=https"
-        - "traefik.http.routers.${STACK?Variable not set}_wp-https.tls=true"
-        - "traefik.http.routers.${STACK?Variable not set}_wp-https.tls.certresolver=le"
-        - "traefik.http.services.${STACK?Variable not set}_wp.loadbalancer.server.port=80"
+        - "traefik.http.routers.${STACK}_wp-http.rule=Host(`${DOMAIN?Variable not set}`)"
+        - "traefik.http.routers.${STACK}_wp-http.entrypoints=http"
+        - "traefik.http.routers.${STACK}_wp-http.middlewares=https-redirect"
+        - "traefik.http.routers.${STACK}_wp-https.rule=Host(`${DOMAIN?Variable not set}`)"
+        - "traefik.http.routers.${STACK}_wp-https.entrypoints=https"
+        - "traefik.http.routers.${STACK}_wp-https.tls=true"
+        - "traefik.http.routers.${STACK}_wp-https.tls.certresolver=le"
+        - "traefik.http.services.${STACK}_wp.loadbalancer.server.port=80"
 
   db:
     image:  mariadb
@@ -47,8 +48,8 @@ services:
     environment:
       - MYSQL_DATABASE=db
       - MYSQL_USER=db
-      - MYSQL_PASSWORD=${DBPASSWORD?Variable not set}
-      - MYSQL_RANDOM_ROOT_PASSWORD='1'
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     deploy:
       placement:
         constraints:
