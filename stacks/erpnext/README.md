@@ -1,5 +1,4 @@
 Create Portainer config "erp-mariadb"
-
 ```
 [mysqld]
 character-set-client-handshake = FALSE
