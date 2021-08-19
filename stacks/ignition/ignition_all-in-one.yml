@@ -1,18 +1,19 @@
-#    Stack Environment Variables
-#    
-#    - `DOMAIN` - subdomain.example.domain
-#    - `NODE` - manager, worker1, etc
-#    - `STACK` - name of this stack for traefik reference
-#    - `IGPASSWORD` - Ignition password
-#    - `IGDBPASSWORD` - Ignition database password
-#    
-#    Ignition Gateway Database Connection
+#To Setup Ignition Gateway Database Connection when in the WebUI
 #    
 #    - `JDBC Driver` - MariaDB
 #    - `user` - db
 #    - `URL` jdbc:db://mariadb:3306/db
+#
+#Stack Environment Variables
+#    
+#DOMAIN=subdomain.example.domain
+#NODE=manager, worker1, etc
+#STACK=name of this stack for traefik reference
+#MYSQL_ROOT_PASSWORD=somepassword
+#MYSQL_PASSWORD=somepassword
+#IGPASSWORD=Ignition admin password
 
-version: '3.3'
+version: '3.8'
 
 services:
   ignition:
@@ -23,8 +24,8 @@ services:
       - internal-network
       - traefik-public
     environment:
-      - GATEWAY_SYSTEM_NAME=${STACK?Variable not set}_ignition
-      - GATEWAY_ADMIN_PASSWORD=${IGPASSWORD?Variable not set}
+      - GATEWAY_SYSTEM_NAME=${STACK}_ignition
+      - GATEWAY_ADMIN_PASSWORD=${IGPASSWORD}
       - IGNITION_EDITION=full
       - IGNITION_STARTUP_DELAY=30
     deploy:
@@ -35,16 +36,16 @@ services:
         - "traefik.enable=true"
         - "traefik.docker.network=traefik-public"
         - "traefik.constraint-label=traefik-public"
-        - "traefik.http.routers.${STACK?Variable not set}_ignition-http.rule=Host(`${DOMAIN?Variable not set}`)"
-        - "traefik.http.routers.${STACK?Variable not set}_ignition-http.entrypoints=http"
-        - "traefik.http.routers.${STACK?Variable not set}_ignition-http.middlewares=https-redirect"
-        - "traefik.http.routers.${STACK?Variable not set}_ignition-https.rule=Host(`${DOMAIN?Variable not set}`)"
-        - "traefik.http.routers.${STACK?Variable not set}_ignition-https.entrypoints=https"
-        - "traefik.http.routers.${STACK?Variable not set}_ignition-https.tls=true"
-        - "traefik.http.routers.${STACK?Variable not set}_ignition-https.tls.certresolver=le"
-        - "traefik.http.services.${STACK?Variable not set}_ignition.loadbalancer.server.port=8088"
-        - "traefik.http.middlewares.${STACK?Variable not set}_ignition-path.replacepathregex.regex=^/main/StatusPing$$"
-        - "traefik.http.middlewares.${STACK?Variable not set}_ignition-path.replacepathregex.replacement=/StatusPing"
+        - "traefik.http.routers.${STACK}_ignition-http.rule=Host(`${DOMAIN}`)"
+        - "traefik.http.routers.${STACK}_ignition-http.entrypoints=http"
+        - "traefik.http.routers.${STACK}_ignition-http.middlewares=https-redirect"
+        - "traefik.http.routers.${STACK}_ignition-https.rule=Host(`${DOMAIN}`)"
+        - "traefik.http.routers.${STACK}_ignition-https.entrypoints=https"
+        - "traefik.http.routers.${STACK}_ignition-https.tls=true"
+        - "traefik.http.routers.${STACK}_ignition-https.tls.certresolver=le"
+        - "traefik.http.services.${STACK}_ignition.loadbalancer.server.port=8088"
+        - "traefik.http.middlewares.${STACK}_ignition-path.replacepathregex.regex=^/main/StatusPing$$"
+        - "traefik.http.middlewares.${STACK}_ignition-path.replacepathregex.replacement=/StatusPing"
 
   db:
     image:  mariadb
@@ -56,8 +57,8 @@ services:
     environment:
       - MYSQL_DATABASE=db
       - MYSQL_USER=db
-      - MYSQL_PASSWORD=${IGDBPASSWORD?Variable not set}
-      - MYSQL_RANDOM_ROOT_PASSWORD='1'
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     deploy:
       placement:
         constraints:
