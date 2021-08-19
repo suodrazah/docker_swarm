@@ -1,14 +1,14 @@
-#    Stack Environment Variables
+#Stack Environment Variables
 #    
-#    - `DOMAIN` - subdomain.example.domain
-#    - `STACK` - name of this stack for traefik reference
-#    - `NODE` - manager, worker1, etc
+#DOMAIN=subdomain.example.domain
+#NODE=manager, worker1, etc
+#STACK=name of this stack for traefik reference
 
-version: '3.3'
+version: '3.8'
 
 services:
   unifi:
-    image:  linuxserver/unifi-controller
+    image: linuxserver/unifi-controller
     volumes:
       - unifi-data:/config
     networks:
@@ -25,15 +25,15 @@ services:
         - "traefik.enable=true"
         - "traefik.docker.network=traefik-public"
         - "traefik.constraint-label=traefik-public"
-        - "traefik.http.routers.${STACK?Variable not set}_unifi-http.rule=Host(`${DOMAIN?Variable not set}`)"
-        - "traefik.http.routers.${STACK?Variable not set}_unifi-http.entrypoints=http"
-        - "traefik.http.routers.${STACK?Variable not set}_unifi-http.middlewares=https-redirect"
-        - "traefik.http.routers.${STACK?Variable not set}_unifi-https.rule=Host(`${DOMAIN?Variable not set}`)"
-        - "traefik.http.routers.${STACK?Variable not set}_unifi-https.entrypoints=https"
-        - "traefik.http.routers.${STACK?Variable not set}_unifi-https.tls=true"
-        - "traefik.http.routers.${STACK?Variable not set}_unifi-https.tls.certresolver=le"
-        - "traefik.http.services.${STACK?Variable not set}_unifi.loadbalancer.server.port=8443"
-        - "traefik.http.services.${STACK?Variable not set}_unifi.loadbalancer.server.scheme=https"
+        - "traefik.http.routers.${STACK}_unifi-http.rule=Host(`${DOMAIN}`)"
+        - "traefik.http.routers.${STACK}_unifi-http.entrypoints=http"
+        - "traefik.http.routers.${STACK}_unifi-http.middlewares=https-redirect"
+        - "traefik.http.routers.${STACK}_unifi-https.rule=Host(`${DOMAIN}`)"
+        - "traefik.http.routers.${STACK}_unifi-https.entrypoints=https"
+        - "traefik.http.routers.${STACK}_unifi-https.tls=true"
+        - "traefik.http.routers.${STACK}_unifi-https.tls.certresolver=le"
+        - "traefik.http.services.${STACK}_unifi.loadbalancer.server.port=8443"
+        - "traefik.http.services.${STACK}_unifi.loadbalancer.server.scheme=https"
 
 networks:
   internal-network:
