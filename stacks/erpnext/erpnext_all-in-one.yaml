@@ -1,4 +1,4 @@
-#    Create Portainer config "erp-mariadb"
+#Create Portainer config "erp-mariadb"
 #    
 #    ```
 #    [mysqld]
@@ -14,7 +14,7 @@
 #    default-character-set = utf8mb4
 #    ```
 #    
-#    Stack Environment Variables
+#Stack Environment Variables
 #    
 #ERPNEXT_VERSION=v13.8.0
 #FRAPPE_VERSION=v13.8.0
@@ -93,14 +93,14 @@ services:
         - "traefik.enable=true"
         - "traefik.docker.network=traefik-public"
         - "traefik.constraint-label=traefik-public"
-        - "traefik.http.routers.${STACK?Variable not set}-http.rule=Host(`${DOMAIN?Variable not set}`)"
-        - "traefik.http.routers.${STACK?Variable not set}-http.entrypoints=http"
-        - "traefik.http.routers.${STACK?Variable not set}-http.middlewares=https-redirect"
-        - "traefik.http.routers.${STACK?Variable not set}-https.rule=Host(`${DOMAIN?Variable not set}`)"
-        - "traefik.http.routers.${STACK?Variable not set}-https.entrypoints=https"
-        - "traefik.http.routers.${STACK?Variable not set}-https.tls=true"
-        - "traefik.http.routers.${STACK?Variable not set}-https.tls.certresolver=le"
-        - "traefik.http.services.${STACK?Variable not set}.loadbalancer.server.port=80"
+        - "traefik.http.routers.${STACK}-http.rule=Host(`${DOMAIN}`)"
+        - "traefik.http.routers.${STACK}-http.entrypoints=http"
+        - "traefik.http.routers.${STACK}-http.middlewares=https-redirect"
+        - "traefik.http.routers.${STACK}-https.rule=Host(`${DOMAIN}`)"
+        - "traefik.http.routers.${STACK}-https.entrypoints=https"
+        - "traefik.http.routers.${STACK}-https.tls=true"
+        - "traefik.http.routers.${STACK}-https.tls.certresolver=le"
+        - "traefik.http.services.${STACK}.loadbalancer.server.port=80"
 
   erpnext-python:
     image: frappe/erpnext-worker:${ERPNEXT_VERSION}
