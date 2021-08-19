@@ -67,7 +67,6 @@ services:
 
   erpnext-nginx:
     image: frappe/erpnext-nginx:${ERPNEXT_VERSION}
-    restart: on-failure
     networks:
       - internal-network
       - traefik-public
@@ -105,7 +104,6 @@ services:
 
   erpnext-python:
     image: frappe/erpnext-worker:${ERPNEXT_VERSION}
-    restart: on-failure
     networks:
       - internal-network
     environment:
@@ -127,7 +125,6 @@ services:
 
   frappe-socketio:
     image: frappe/frappe-socketio:${FRAPPE_VERSION}
-    restart: on-failure
     networks:
       - internal-network
     depends_on:
@@ -142,7 +139,6 @@ services:
 
   frappe-worker-default:
     image: frappe/erpnext-worker:${ERPNEXT_VERSION}
-    restart: on-failure
     networks:
       - internal-network
     command: worker
@@ -159,7 +155,6 @@ services:
 
   frappe-worker-short:
     image: frappe/erpnext-worker:${ERPNEXT_VERSION}
-    restart: on-failure
     networks:
       - internal-network
     command: worker
@@ -178,7 +173,6 @@ services:
 
   frappe-worker-long:
     image: frappe/erpnext-worker:${ERPNEXT_VERSION}
-    restart: on-failure
     networks:
       - internal-network
     command: worker
@@ -197,7 +191,6 @@ services:
 
   frappe-schedule:
     image: frappe/erpnext-worker:${ERPNEXT_VERSION}
-    restart: on-failure
     networks:
       - internal-network
     command: schedule
@@ -214,7 +207,6 @@ services:
 
   redis:
     image: redis:latest
-    restart: on-failure
     networks:
       - internal-network
     volumes:
@@ -226,7 +218,6 @@ services:
 
   mariadb:
     image: mariadb:10.5
-    restart: on-failure
     networks:
       - internal-network
     environment:
@@ -244,7 +235,6 @@ services:
 
 #  sqlbak:
 #    image: pranasnet/sqlbak
-#    restart: on-failure
 #    volumes:
 #      - sqlbak-data:/opt/sqlbak
 #      - sqlbak-temp:/tmp/sqlbak
