@@ -10,7 +10,7 @@
    * `Add Stack`
    * `Name` - e.g. client1-ignition
    * `Web editor` - copy contents of stack.yml file
-   * `Environment variables` - as described by the stack Readme.md
+   * `Environment variables` - as described by the stack Readme.md, you can click advanced and copy/paste
 
 ![alt text](https://raw.githubusercontent.com/suodrazah/docker_swarm/main/_images/deploy_stack.png)
 
