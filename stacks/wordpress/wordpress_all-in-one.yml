@@ -6,7 +6,7 @@
 #MYSQL_ROOT_PASSWORD=somepassword
 #MYSQL_PASSWORD=somepassword
 
-version: '3.3'
+version: '3.8'
 
 services:
   wp:
