@@ -232,7 +232,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     configs:
-      - source: suo-cloud-erp-mariadb
+      - source: erp-mariadb
         target: /etc/mysql/conf.d/frappe.cnf
     volumes:
       - mariadb-vol:/var/lib/mysql
@@ -279,7 +279,7 @@ volumes:
 #  sqlbak-temp:
 
 configs:
-  suo-cloud-erp-mariadb:
+  erp-mariadb:
     external: true
 
 networks:
