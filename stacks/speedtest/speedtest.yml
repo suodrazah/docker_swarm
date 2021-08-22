@@ -1,0 +1,33 @@
+#Stack Environment Variables
+#    
+#DOMAIN=subdomain.example.domain
+#NODE=manager, worker1, etc
+#STACK=name of this stack for traefik reference
+
+version: '3.8'
+
+services:
+  speedtest:
+    image: adolfintel/speedtest
+    networks:
+      - traefik-public
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=traefik-public"
+        - "traefik.constraint-label=traefik-public"
+        - "traefik.http.routers.${STACK}_speedtest-http.rule=Host(`${DOMAIN}`)"
+        - "traefik.http.routers.${STACK}_speedtest-http.entrypoints=http"
+        - "traefik.http.routers.${STACK}_speedtest-http.middlewares=https-redirect"
+        - "traefik.http.routers.${STACK}_speedtest-https.rule=Host(`${DOMAIN}`)"
+        - "traefik.http.routers.${STACK}_speedtest-https.entrypoints=https"
+        - "traefik.http.routers.${STACK}_speedtest-https.tls=true"
+        - "traefik.http.routers.${STACK}_speedtest-https.tls.certresolver=le"
+        - "traefik.http.services.${STACK}_.loadbalancer.server.port=80"
+
+networks:
+  traefik-public:
+    external: true
