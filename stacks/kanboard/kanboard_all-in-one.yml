@@ -82,9 +82,9 @@ services:
 #      - sqlbak-data:/opt/sqlbak
 #      - sqlbak-temp:/tmp/sqlbak
 #      - mariadb-logs:/var/log/mysql
-#      - kanboard_data:/kanboard/data
-#      - kanboard_plugins:/kanboard/plugins
-#      - kanboard_ssl:/kanboard/ssl
+#      - kanboard_data:/data/data
+#      - kanboard_plugins:/data/plugins
+#      - kanboard_ssl:/data/ssl
 #    networks:
 #      - internal-network
 #    environment:
