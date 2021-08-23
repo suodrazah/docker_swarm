@@ -30,7 +30,7 @@ version: '3.8'
 
 services:
 
-  erpnext-worker:
+  erpnext-worker-site:
     image: frappe/erpnext-worker:${ERPNEXT_VERSION}
     networks:
       - internal-network
