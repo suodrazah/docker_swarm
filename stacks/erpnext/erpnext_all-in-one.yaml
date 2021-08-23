@@ -239,7 +239,7 @@ services:
 #      - sqlbak-data:/opt/sqlbak
 #      - sqlbak-temp:/tmp/sqlbak
 #      - mariadb-logs:/var/log/mysql
-#      - sites-vol:/sites
+#      - sites-vol:/data
 #    networks:
 #      - internal-network
 #    environment:
