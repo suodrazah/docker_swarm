@@ -81,7 +81,7 @@ services:
 #      - sqlbak-data:/opt/sqlbak
 #      - sqlbak-temp:/tmp/sqlbak
 #      - mariadb-logs:/var/log/mysql
-#      - wp-data:/wordpress
+#      - wp-data:/data
 #    networks:
 #      - internal-network
 #    environment:
