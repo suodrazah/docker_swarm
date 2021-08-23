@@ -76,31 +76,31 @@ services:
         constraints:
         - node.labels.$NODE == true
 
-  sqlbak:
-    image: pranasnet/sqlbak
-    volumes:
-      - sqlbak-data:/opt/sqlbak
-      - sqlbak-temp:/tmp/sqlbak
-      - mariadb-logs:/var/log/mysql
-      - kanboard_data:/kanboard/data
-      - kanboard_plugins:/kanboard/plugins
-      - kanboard_ssl:/kanboard/ssl
-    networks:
-      - internal-network
-    environment:
-      - sqlbak_key=${SQLBAK_KEY}
-      - sqlbak_name=${STACK}
-      - db_type=MYSQL
-      - user=root
-      - password=${MYSQL_ROOT_PASSWORD}
-      - host=mariadb
-      - port=3306
-    depends_on:
-      - mariadb
-    deploy:
-      placement:
-        constraints:
-        - node.labels.$NODE == true
+#  sqlbak:
+#    image: pranasnet/sqlbak
+#    volumes:
+#      - sqlbak-data:/opt/sqlbak
+#      - sqlbak-temp:/tmp/sqlbak
+#      - mariadb-logs:/var/log/mysql
+#      - kanboard_data:/kanboard/data
+#      - kanboard_plugins:/kanboard/plugins
+#      - kanboard_ssl:/kanboard/ssl
+#    networks:
+#      - internal-network
+#    environment:
+#      - sqlbak_key=${SQLBAK_KEY}
+#      - sqlbak_name=${STACK}
+#      - db_type=MYSQL
+#      - user=root
+#      - password=${MYSQL_ROOT_PASSWORD}
+#      - host=mariadb
+#      - port=3306
+#    depends_on:
+#      - mariadb
+#    deploy:
+#      placement:
+#        constraints:
+#        - node.labels.$NODE == true
 
 volumes:
   kanboard_data:
@@ -108,8 +108,8 @@ volumes:
   kanboard_ssl:
   mariadb-vol:
   mariadb-logs:
-  sqlbak-data:
-  sqlbak-temp:
+#  sqlbak-data:
+#  sqlbak-temp:
 
 configs:
   kanboard-mariadb:
