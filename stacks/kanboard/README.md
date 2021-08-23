@@ -17,6 +17,7 @@ default-character-set = utf8mb4
 
 Stack Environment Variables
 ```
+DOMAIN=subdomain.example.domain
 MYSQL_PASSWORD=Kanboard Database Password
 MYSQL_ROOT_PASSWORD=Mariadb root password
 SQLBAK_KEY=sqlbak key
