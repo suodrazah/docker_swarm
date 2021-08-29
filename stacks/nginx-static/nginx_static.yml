@@ -1,0 +1,68 @@
+#Stack Environment Variables
+#    
+#DOMAIN=subdomain.example.domain, use filebrowser at files-subdomain.example.com to place static content
+#NODE=manager, worker1, etc
+#STACK=name of this stack for traefik reference
+
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx
+    restart: always
+    volumes:
+      - nginx-data:/usr/share/nginx/html
+    networks:
+      - internal-network
+      - traefik-public
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=traefik-public"
+        - "traefik.constraint-label=traefik-public"
+        - "traefik.http.routers.${STACK}_nginx-http.rule=Host(`${DOMAIN}`)"
+        - "traefik.http.routers.${STACK}_nginx-http.entrypoints=http"
+        - "traefik.http.routers.${STACK}_nginx-http.middlewares=https-redirect"
+        - "traefik.http.routers.${STACK}_nginx-https.rule=Host(`${DOMAIN}`)"
+        - "traefik.http.routers.${STACK}_nginx-https.entrypoints=https"
+        - "traefik.http.routers.${STACK}_nginx-https.tls=true"
+        - "traefik.http.routers.${STACK}_nginx-https.tls.certresolver=le"
+        - "traefik.http.services.${STACK}_nginx.loadbalancer.server.port=80"
+  
+  filebrowser:
+    image: hurlenko/filebrowser
+    restart: always
+    volumes:
+      - filebrowser-data:/config
+      - nginx-data:/data
+    networks:
+      - internal-network
+      - traefik-public
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=traefik-public"
+        - "traefik.constraint-label=traefik-public"
+        - "traefik.http.routers.${STACK}_files-nginx-http.rule=Host(`files-${DOMAIN}`)"
+        - "traefik.http.routers.${STACK}_files-nginx-http.entrypoints=http"
+        - "traefik.http.routers.${STACK}_files-nginx-http.middlewares=https-redirect"
+        - "traefik.http.routers.${STACK}_files-nginx-https.rule=Host(`files-${DOMAIN}`)"
+        - "traefik.http.routers.${STACK}_files-nginx-https.entrypoints=https"
+        - "traefik.http.routers.${STACK}_files-nginx-https.tls=true"
+        - "traefik.http.routers.${STACK}_files-nginx-https.tls.certresolver=le"
+        - "traefik.http.services.${STACK}_files-nginx.loadbalancer.server.port=8080"
+
+volumes:
+  filebrowser-data:
+  nginx-data:
+
+networks:
+  internal-network:
+  traefik-public:
+    external: true
