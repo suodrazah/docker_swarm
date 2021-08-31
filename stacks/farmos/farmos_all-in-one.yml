@@ -1,0 +1,88 @@
+#Stack Environment Variables
+#    
+#DOMAIN=subdomain.example.domain
+#NODE=manager, worker1, etc
+#STACK=name of this stack for traefik reference
+#MYSQL_ROOT_PASSWORD=somepassword
+#MYSQL_PASSWORD=somepassword
+#SQLBAK_KEY=sqlbak key
+
+version: '3.8'
+
+services:
+  farmos:
+    image: farmos/farmos:dev
+    volumes:
+      - farmos-data:/var/www/html
+    networks:
+      - internal-network
+      - traefik-public
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=traefik-public"
+        - "traefik.constraint-label=traefik-public"
+        - "traefik.http.routers.${STACK}_farmos-http.rule=Host(`${DOMAIN}`)"
+        - "traefik.http.routers.${STACK}_farmos-http.entrypoints=http"
+        - "traefik.http.routers.${STACK}_farmos-http.middlewares=https-redirect"
+        - "traefik.http.routers.${STACK}_farmos-https.rule=Host(`${DOMAIN}`)"
+        - "traefik.http.routers.${STACK}_farmos-https.entrypoints=https"
+        - "traefik.http.routers.${STACK}_farmos-https.tls=true"
+        - "traefik.http.routers.${STACK}_farmos-https.tls.certresolver=le"
+        - "traefik.http.services.${STACK}_farmos.loadbalancer.server.port=80"
+
+  mariadb:
+    image: mariadb:10.5
+    networks:
+      - internal-network
+    environment:
+      - MYSQL_DATABASE=farm
+      - MYSQL_USER=farm
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mariadb-vol:/var/lib/mysql
+      - mariadb-logs:/var/log/mysql
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+
+  sqlbak:
+    image: pranasnet/sqlbak
+    volumes:
+      - sqlbak-data:/opt/sqlbak
+      - sqlbak-temp:/tmp/sqlbak
+      - mariadb-logs:/var/log/mysql
+      - farmos-data:/data
+    networks:
+      - internal-network
+    environment:
+      - sqlbak_key=${SQLBAK_KEY}
+      - sqlbak_name=${STACK}
+      - db_type=MYSQL
+      - user=root
+      - password=${MYSQL_ROOT_PASSWORD}
+      - host=mariadb
+      - port=3306
+    depends_on:
+      - mariadb
+    deploy:
+      placement:
+        constraints:
+        - node.labels.$NODE == true
+
+volumes:
+  farmos-data:
+  mariadb-vol:
+  mariadb-logs:
+  sqlbak-data:
+  sqlbak-temp:
+
+networks:
+  internal-network:
+  traefik-public:
+    external: true
