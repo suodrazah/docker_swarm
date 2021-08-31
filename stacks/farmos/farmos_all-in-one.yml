@@ -11,9 +11,9 @@ version: '3.8'
 
 services:
   farmos:
-    image: farmos/farmos:dev
+    image: farmos/farmos::7.x-1.7
     volumes:
-      - farmos-data:/var/www/html
+      - farmos-data:/var/www/html/sites
     networks:
       - internal-network
       - traefik-public
