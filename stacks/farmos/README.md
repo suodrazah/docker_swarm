@@ -1,3 +1,8 @@
+Until I can be bothered adding a fix, for now after creating your site please append container file /var/www/html/sites/all/settings.php with
+```
+$base_url = 'https://www.example.com';
+```
+
 Stack Environment Variables
 ```
 DOMAIN=subdomain.example.domain
